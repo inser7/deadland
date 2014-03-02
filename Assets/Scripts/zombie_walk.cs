@@ -69,7 +69,8 @@ public class zombie_walk : MonoBehaviour {
           GameObject go = GameObject.FindGameObjectWithTag("Player");
 	     //Debug.Log(target.position);
 		// 2
-		if( Input.GetButton("Fire1") ) {
+		/* 
+         if( Input.GetButton("Fire1") ) {
 			// 3
 			Vector3 moveToward = Camera.main.ScreenToWorldPoint( Input.mousePosition );
 			// 4
@@ -83,6 +84,7 @@ public class zombie_walk : MonoBehaviour {
 			Vector3 Pltarget = PlayerMove * 5 + PlcurrentPosition;
 			go.transform.position = Vector3.Lerp( PlcurrentPosition, Pltarget, Time.deltaTime );
 		}
+          */
 
 		
 		moveDirection = go.transform.position - currentPosition;
