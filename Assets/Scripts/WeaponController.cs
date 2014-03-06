@@ -21,6 +21,7 @@ public class WeaponController : MonoBehaviour {
 		{
 			var cloneBullet = Instantiate( bullet, transform.position, transform.rotation);
 
+			Destroy(cloneBullet, 1);
 		}
 	}
 }
