@@ -19,11 +19,11 @@ public class BulletFly : MonoBehaviour {
 	}
 
 
-	void OnCollisionEnter(Collision myCollision){
+	void OnCollisionEnter2D (Collision2D myCollision){
 		MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
 		//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
 		Debug.Log ("колизия");
-		if (collisionBehaviour) {//Если MyBehaviour eсть
+		if (collisionBehaviour) {//Если MonsterBehaviour eсть
 			collisionBehaviour.SetDamage(30);
 		}
 		Destroy (gameObject);//после попадания в любой обьект, патрон исчещает
