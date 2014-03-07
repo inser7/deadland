@@ -6,11 +6,13 @@ public class ZombieHp : MonsterHp {
 	public float originalHp = 100f; // Начальные значения здоровья(не меняется в ходе игры)
 	private float currentHp; // текущее значение здоровья
 	private Transform thisTransform;
+	private Animator anim;		
 	// Use this for initialization
 	void Start () {
 		
 		thisTransform = transform;
 		currentHp = originalHp;
+		anim = GetComponent<Animator>();
 		
 	}
 	public override bool SetDamage(float damage){
@@ -20,8 +22,9 @@ public class ZombieHp : MonsterHp {
 			return true;
 		} 
 		else {
-			thisTransform.localScale = new Vector2(2,2); //увеличить моба в 2 раза при смерти
-			Destroy(gameObject,1); //моб изчезаем через 5 минут
+		//	thisTransform.localScale = new Vector2(2,2); //увеличить моба в 2 раза при смерти
+			anim.SetTrigger("dead");
+			Destroy(gameObject,2); //моб изчезаем через 5 минут
 			return false;
 		}
 		
