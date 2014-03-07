@@ -20,7 +20,7 @@ public class ZombieBehaviour : MonsterBehaviour {
 	
 	}
 
-	public override void SetDamage(float damage)
+	public override bool SetDamage(float damage)
 	{
 		if (isLive)
 		{
@@ -34,5 +34,6 @@ public class ZombieBehaviour : MonsterBehaviour {
 				isLive = false;
 			}
 		}
+		return true;
 	}
 }

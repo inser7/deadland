@@ -6,7 +6,8 @@ using System.Collections;
 public class MonsterBehaviour : MonoBehaviour {
 
 	//все монстры получают дамаг
-	virtual public void SetDamage(float damage){	
+	virtual public bool SetDamage(float damage){
+		return true;
 	}
 	// Use this for initialization
 	void Start () {
