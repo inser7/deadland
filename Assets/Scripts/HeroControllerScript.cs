@@ -3,25 +3,36 @@ using System.Collections;
 
 public class HeroControllerScript : MonoBehaviour 
 {
-
+	#region Fields
 	//переменная для установки макс. скорости персонажа
 	public float maxSpeed = 10.0f; 
+	//угол поворота
 	public float turnAngle = 5.0f; 
+	//текущий угол
 	public float currentZRotation = 0.0f; 
 	//направление движения
 	public Vector2 forwardDirection = new Vector2 (0.0f, 1.0f);
 
+	private Transform heroTransform;
+	private AudioSource heroSound;
 	//ссылка на компонент анимаций
 	private Animator anim;
+	#endregion
+
 
 	// Use this for initialization
+	#region void Start ()
 	void Start () 
 	{
 		anim = GetComponent<Animator>();
-		currentZRotation = rigidbody2D.transform.rotation.eulerAngles.z;
-	}
+		heroTransform = rigidbody2D.transform;
+		currentZRotation = heroTransform.rotation.eulerAngles.z;
 
-	//void Update() { }
+		heroSound = audio;
+	}
+	#endregion
+
+	#region private void FixedUpdate()
 	private void FixedUpdate()
 	{
 		Vector2 moveDirection 	= new Vector2 ( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
@@ -29,7 +40,7 @@ public class HeroControllerScript : MonoBehaviour
 		if (Mathf.Abs (moveDirection.y) > 0.0f) 
 		{ //если двигаемся вперед
 			anim.SetFloat ("Speed", Mathf.Abs (moveDirection.y));		
-			audio.pitch = 1.0f + 0.2f* Mathf.Abs (moveDirection.y);
+			heroSound.pitch = 1.0f + 0.2f* Mathf.Abs (moveDirection.y);
 			rigidbody2D.velocity = forwardDirection * maxSpeed * moveDirection.y;
 		}
 					
@@ -37,18 +48,24 @@ public class HeroControllerScript : MonoBehaviour
 		{
 			anim.SetFloat("Speed", Mathf.Abs(moveDirection.x));
 
-			currentZRotation = rigidbody2D.transform.rotation.eulerAngles.z;
-			currentZRotation -= turnAngle * moveDirection.x;
+			currentZRotation = heroTransform.rotation.eulerAngles.z;
+			heroTransform.rotation= Quaternion.Euler(0.0f, 0.0f,  currentZRotation );
+			if( moveDirection.y < 0.0f )
+				currentZRotation += turnAngle * moveDirection.x;
+			else
+				currentZRotation -= turnAngle * moveDirection.x;
 
-			float newX 	= forwardDirection.x * Mathf.Cos( Mathf.Deg2Rad * ( currentZRotation - rigidbody2D.transform.rotation.eulerAngles.z ) ) 
-				- forwardDirection.y * Mathf.Sin( Mathf.Deg2Rad * ( currentZRotation - rigidbody2D.transform.rotation.eulerAngles.z ) );// +rigidbody2D.transform.position.x;
-			float newY 	= forwardDirection.x * Mathf.Sin( Mathf.Deg2Rad * ( currentZRotation - rigidbody2D.transform.rotation.eulerAngles.z ) ) 
-				+ forwardDirection.y * Mathf.Cos( Mathf.Deg2Rad * ( currentZRotation - rigidbody2D.transform.rotation.eulerAngles.z ) );// +rigidbody2D.transform.position.y;
+			float newX 	= forwardDirection.x * Mathf.Cos( Mathf.Deg2Rad * ( currentZRotation - heroTransform.rotation.eulerAngles.z ) ) 
+				- forwardDirection.y * Mathf.Sin( Mathf.Deg2Rad * ( currentZRotation - heroTransform.rotation.eulerAngles.z ) );// +rigidbody2D.transform.position.x;
+			float newY 	= forwardDirection.x * Mathf.Sin( Mathf.Deg2Rad * ( currentZRotation - heroTransform.rotation.eulerAngles.z ) ) 
+				+ forwardDirection.y * Mathf.Cos( Mathf.Deg2Rad * ( currentZRotation - heroTransform.rotation.eulerAngles.z ) );// +rigidbody2D.transform.position.y;
 
 			forwardDirection = new Vector2( newX, newY ) ;
 			forwardDirection.Normalize();
 
-			rigidbody2D.transform.rotation= Quaternion.Euler(0.0f, 0.0f,  currentZRotation );
+
+			heroTransform.rotation= Quaternion.Euler(0.0f, 0.0f,  currentZRotation );
 		}
 	}
+	#endregion
 }
