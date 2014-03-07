@@ -3,27 +3,27 @@ using System.Collections;
 
 public class GarageController : MonoBehaviour {
 	
-	//private Vector3 tracktorTransform;
+	#region Fields
 	private Transform tracktorTransform;
 	public float angle = 5.0f;
+	#endregion
 	// Use this for initialization
+	#region void Start () 
 	void Start () 
 	{
 		tracktorTransform = transform;
 	}
+	#endregion
 	
 	// Update is called once per frame
+	#region void Update ()
 	void Update () 
 	{
-		//Vector3 clickPosition;// = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
 		tracktorTransform.RotateAround (tracktorTransform.position, new Vector3 (0.0f, 1.0f, 0.0f), angle * Mathf.Deg2Rad);
-
 		if (Input.GetButton ("Fire1")) 
 		{
-			Vector3 clickPosition = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;
 			tracktorTransform.RotateAround (tracktorTransform.position, new Vector3 (0.0f, 1.0f, 0.0f), angle * Mathf.Deg2Rad  * -50 * Input.GetAxis("Mouse X"));
-
 		}
-
 	}
+	#endregion
 }

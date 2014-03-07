@@ -32,8 +32,6 @@ public class WeaponController : MonoBehaviour {
 		{ 
 			timeToFire = Time.time + rateOfFire;
 			var cloneBullet  = Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
-
-			Destroy(cloneBullet, 1);
 		}
 	}
 	#endregion
