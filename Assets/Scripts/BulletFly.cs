@@ -20,7 +20,7 @@ public class BulletFly : MonoBehaviour {
 
 
 	void OnCollisionEnter(Collision myCollision){
-		 MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
+		MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
 		//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
 		Debug.Log ("колизия");
 		if (collisionBehaviour) {//Если MyBehaviour eсть

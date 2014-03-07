@@ -12,7 +12,8 @@ public class ZombieBehaviour : MonsterBehaviour {
 	private Transform thisTransform; 
 	// Use this for initialization
 	void Start () {
-	
+		//Debug.Log ("ZombieBehaviour");
+		thisHp = GetComponent<MonsterHp>();
 	}
 	
 	// Update is called once per frame
