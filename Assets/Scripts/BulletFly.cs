@@ -17,6 +17,17 @@ public class BulletFly : MonoBehaviour {
 		forwardDirection = new Vector2( newX, newY ) ;
 		forwardDirection.Normalize();
 	}
+
+
+	void OnCollisionEnter(Collision myCollision){
+		 MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
+		//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
+		Debug.Log ("колизия");
+		if (collisionBehaviour) {//Если MyBehaviour eсть
+			collisionBehaviour.SetDamage(30);
+		}
+		Destroy (gameObject);//после попадания в любой обьект, патрон исчещает
+	}
 	
 	// Update is called once per frame
 	void Update () 

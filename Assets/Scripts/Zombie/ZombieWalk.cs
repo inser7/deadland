@@ -87,7 +87,7 @@ public class ZombieWalk : MonoBehaviour
         moveDirection.Normalize();
 
         var playerTarget = moveDirection * moveSpeed + currentPosition;
-        Debug.Log(playerTarget);
+//        Debug.Log(playerTarget);
         transform.position = Vector3.Lerp(currentPosition, playerTarget, Time.deltaTime);
 
         var targetAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
