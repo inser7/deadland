@@ -21,7 +21,7 @@ public class ZombieHp : MonsterHp {
 		} 
 		else {
 			thisTransform.localScale = new Vector2(2,2); //увеличить моба в 2 раза при смерти
-			Destroy(gameObject,5); //моб изчезаем через 5 минут
+			Destroy(gameObject,1); //моб изчезаем через 5 минут
 			return false;
 		}
 		
