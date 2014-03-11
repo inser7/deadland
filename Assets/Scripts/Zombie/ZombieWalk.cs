@@ -13,6 +13,7 @@ public class ZombieWalk : MonoBehaviour
     private GameObject zombie;
     private Vector3 moveDirection, PlayerMove;
 	private MonsterBehaviour ZombBehaviour;
+	//private Rigidbody2D rigidbdy;
 
     #endregion
 
@@ -29,6 +30,7 @@ public class ZombieWalk : MonoBehaviour
         #endregion
 		ZombBehaviour = gameObject.GetComponent<MonsterBehaviour> ();
         moveDirection = Vector3.up;
+		myTransform = this.transform;
     }
 
     #endregion
@@ -99,11 +101,9 @@ public class ZombieWalk : MonoBehaviour
             Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
 				} 
 		else {
-			Collider2D[] cols = GetComponents<Collider2D>();
-			foreach(Collider2D c in cols)
-			{
-				c.isTrigger = true;
-			}
+
+			Destroy (myTransform.rigidbody2D);
+				
 		}
     }
 
