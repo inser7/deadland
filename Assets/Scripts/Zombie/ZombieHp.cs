@@ -5,14 +5,15 @@ public class ZombieHp : MonsterHp {
 
 	public float originalHp = 100f; // Начальные значения здоровья(не меняется в ходе игры)
 	private float currentHp; // текущее значение здоровья
-	private Transform thisTransform;
+//	private Transform thisTransform;
 	private Animator anim;		
 	// Use this for initialization
 	void Start () {
 		
-		thisTransform = transform;
+		//thisTransform = transform;
 		currentHp = originalHp;
 		anim = GetComponent<Animator>();
+
 		
 	}
 	public override bool SetDamage(float damage){
