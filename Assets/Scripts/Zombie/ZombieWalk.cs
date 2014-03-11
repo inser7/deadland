@@ -12,6 +12,7 @@ public class ZombieWalk : MonoBehaviour
     private Transform myTransform;
     private GameObject zombie;
     private Vector3 moveDirection, PlayerMove;
+	private MonsterBehaviour ZombBehaviour;
 
     #endregion
 
@@ -26,7 +27,7 @@ public class ZombieWalk : MonoBehaviour
 
         //	Debug.Log(target);
         #endregion
-
+		ZombBehaviour = gameObject.GetComponent<MonsterBehaviour> ();
         moveDirection = Vector3.up;
     }
 
@@ -58,13 +59,15 @@ public class ZombieWalk : MonoBehaviour
 
     void Update()
     {
-        var currentPosition = transform.position;
-        var go = GameObject.FindGameObjectWithTag("Player");
 
-        #region Commented-out
-        //Debug.Log(target.position);
-        // 2
-        /* 
+	if (ZombBehaviour.GetLive ()) {
+						var currentPosition = transform.position;
+						var go = GameObject.FindGameObjectWithTag ("Player");
+
+						#region Commented-out
+						//Debug.Log(target.position);
+						// 2
+						/* 
          if( Input.GetButton("Fire1") ) {
             // 3
             Vector3 moveToward = Camera.main.ScreenToWorldPoint( Input.mousePosition );
@@ -80,20 +83,28 @@ public class ZombieWalk : MonoBehaviour
             go.transform.position = Vector3.Lerp( PlcurrentPosition, Pltarget, Time.deltaTime );
         }
           */
-        #endregion
+						#endregion
 
-        moveDirection = go.transform.position - currentPosition;
-        moveDirection.z = 0;
-        moveDirection.Normalize();
+						moveDirection = go.transform.position - currentPosition;
+						moveDirection.z = 0;
+						moveDirection.Normalize ();
 
-        var playerTarget = moveDirection * moveSpeed + currentPosition;
+						var playerTarget = moveDirection * moveSpeed + currentPosition;
 //        Debug.Log(playerTarget);
-        transform.position = Vector3.Lerp(currentPosition, playerTarget, Time.deltaTime);
+						transform.position = Vector3.Lerp (currentPosition, playerTarget, Time.deltaTime);
 
-        var targetAngle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
+						var targetAngle = Mathf.Atan2 (moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
 
-        transform.rotation = Quaternion.Slerp(transform.rotation,
-            Quaternion.Euler(0, 0, targetAngle), turnSpeed * Time.deltaTime);
+						transform.rotation = Quaternion.Slerp (transform.rotation,
+            Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
+				} 
+		else {
+			Collider2D[] cols = GetComponents<Collider2D>();
+			foreach(Collider2D c in cols)
+			{
+				c.isTrigger = true;
+			}
+		}
     }
 
     #endregion

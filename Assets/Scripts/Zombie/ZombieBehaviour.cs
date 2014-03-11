@@ -37,4 +37,11 @@ public class ZombieBehaviour : MonsterBehaviour {
 		}
 		return true;
 	}
+
+	public override bool GetLive(){
+		if (isLive)
+						return true;
+				else
+						return false;
+	}
 }

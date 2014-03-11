@@ -9,6 +9,10 @@ public class MonsterBehaviour : MonoBehaviour {
 	virtual public bool SetDamage(float damage){
 		return true;
 	}
+
+	virtual public bool GetLive(){
+		return true;
+	}
 	// Use this for initialization
 	void Start () {
 	
