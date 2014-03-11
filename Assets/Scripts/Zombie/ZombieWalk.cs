@@ -15,6 +15,8 @@ public class ZombieWalk : MonoBehaviour
 	private MonsterBehaviour ZombBehaviour;
 	//private Rigidbody2D rigidbdy;
 
+	private Collider2D[] cols;
+
     #endregion
 
     #region Start
@@ -30,7 +32,8 @@ public class ZombieWalk : MonoBehaviour
         #endregion
 		ZombBehaviour = gameObject.GetComponent<MonsterBehaviour> ();
         moveDirection = Vector3.up;
-		myTransform = this.transform;
+		myTransform = this.transform; //кэш
+		cols= GetComponents<Collider2D>(); // кэш
     }
 
     #endregion
@@ -101,6 +104,13 @@ public class ZombieWalk : MonoBehaviour
             Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
 				} 
 		else {
+
+			// Find all of the colliders on the gameobject and set them all to be triggers.
+
+			foreach(Collider2D c in cols)
+			{
+				c.isTrigger = true;
+			}
 
 			Destroy (myTransform.rigidbody2D);
 				
