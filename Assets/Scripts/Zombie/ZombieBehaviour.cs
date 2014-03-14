@@ -21,11 +21,11 @@ public class ZombieBehaviour : MonsterBehaviour {
 	
 	}
 
-	public override bool SetDamage(float damage)
+	public override bool SetDamage(BulletFly bullet)
 	{
 		if (isLive)
 		{
-			if (thisHp.SetDamage(damage))
+			if (thisHp.SetDamage(bullet))
 			{
 				//моб жив
 			}

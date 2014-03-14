@@ -5,6 +5,7 @@ public class BulletFly : MonoBehaviour {
 
 	#region Fields
 	public float maxSpeed = 20.0f; 
+	public float damage = 30.0f;
 	public Vector2 forwardDirection = new Vector2 (0.0f, 1.0f);
 	public float timeToDie = 1.0f;
 	private float timeToLive;
@@ -31,7 +32,8 @@ public class BulletFly : MonoBehaviour {
 		MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
 		//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
 		if (collisionBehaviour) {//Если MonsterBehaviour eсть
-			collisionBehaviour.SetDamage(30);
+			collisionBehaviour.SetDamage(this);
+
 		}
 		Destroy (gameObject);//после попадания в любой обьект, патрон исчещает
 	}

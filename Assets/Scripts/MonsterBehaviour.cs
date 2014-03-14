@@ -6,9 +6,12 @@ using System.Collections;
 public class MonsterBehaviour : MonoBehaviour {
 
 	//все монстры получают дамаг
-	virtual public bool SetDamage(float damage){
+	virtual public bool SetDamage(BulletFly bullet){
 		return true;
 	}
+
+	//
+
 
 	virtual public bool GetLive(){
 		return true;

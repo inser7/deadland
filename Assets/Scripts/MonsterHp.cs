@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MonsterHp : MonoBehaviour {
 
-	virtual public bool SetDamage(float damage){
+	virtual public bool SetDamage(BulletFly bullet){
 		return true;
 	}
 

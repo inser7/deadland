@@ -18,12 +18,14 @@ public class ZombieHp : MonsterHp {
 
 		
 	}
-	public override bool SetDamage(float damage){
-		currentHp = currentHp - damage; // Отнимаем домаг от здоровья
+	public override bool SetDamage(BulletFly bullet){
+		currentHp = currentHp - bullet.damage; // Отнимаем домаг от здоровья
 		//var bloodIndex = Random.Range(0, blood.Length);
 		//Instantiate(blood[bloodIndex], transform.position, transform.rotation);
-
-		Instantiate(shoot, transform.position, transform.rotation); // выстрел
+		Vector3 shootPos = new Vector3 (transform.position.x + bullet.forwardDirection.x, 
+		                                transform.position.y + bullet.forwardDirection.y, 
+		                               transform.position.z);
+		Instantiate(shoot, shootPos, bullet.transform.rotation ); // выстрел
 		if (currentHp > 0) {
 			return true;
 		} 
