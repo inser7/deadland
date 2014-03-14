@@ -35,16 +35,20 @@ public class HeroControllerScript : MonoBehaviour
 	#endregion
 
 	#region void OnCollisionEnter2D (Collision2D myCollision)
-	/*void OnCollisionEnter2D (Collision2D myCollision){
-		MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
-		//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
-		//BulletFly bullet = myCollision.gameObject.GetComponent<BulletFly> ();
-		if (collisionBehaviour) 
-		{//Если MonsterBehaviour eсть
-			//collisionBehaviour.SetDamage(bullet);
-			Debug.Log("Ты сбил зомби");
-		}
-	}*/
+	void OnCollisionEnter2D (Collision2D myCollision)
+	{
+
+			MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
+			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
+			//BulletFly bullet = myCollision.gameObject.GetComponent<BulletFly> ();
+			if (collisionBehaviour) 
+			{//Если MonsterBehaviour eсть
+				//collisionBehaviour.SetDamage(bullet);
+				Debug.Log("Ты сбил зомби");
+			}
+
+	}
+
 	#endregion
 
 	#region private void FixedUpdate()

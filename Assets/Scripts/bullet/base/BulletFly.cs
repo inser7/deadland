@@ -16,26 +16,37 @@ public class BulletFly : MonoBehaviour {
 	void Start () 
 	{
 		bulletTransform = transform;
+
+		Vector3 startPos = bulletTransform.position;
+
 		timeToLive = Time.time + timeToDie;
 		float newX 	= forwardDirection.x * Mathf.Cos( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) ) 
 					- forwardDirection.y * Mathf.Sin( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) );
 		float newY 	= forwardDirection.x * Mathf.Sin( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) ) 
 					+ forwardDirection.y * Mathf.Cos( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) );
 		
+		startPos.x += newX * 3;
+		startPos.y += newY * 3;
+		bulletTransform.position = startPos;
 		forwardDirection = new Vector2( newX, newY ) ;
+		
 		forwardDirection.Normalize();
 	}
 	#endregion
 
 	#region void OnCollisionEnter2D (Collision2D myCollision)
-	void OnCollisionEnter2D (Collision2D myCollision){
-		MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
-		//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
-		if (collisionBehaviour) {//Если MonsterBehaviour eсть
-			collisionBehaviour.SetDamage(this);
-
+	void OnCollisionEnter2D (Collision2D myCollision)
+	{
+		if (myCollision.gameObject.tag == "zombie") 
+		{
+			MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
+			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
+			if (collisionBehaviour) 
+			{//Если MonsterBehaviour eсть			
+				collisionBehaviour.SetDamage (this);
+			}
+			Destroy (gameObject);//после попадания в любой обьект, патрон исчещает		
 		}
-		Destroy (gameObject);//после попадания в любой обьект, патрон исчещает
 	}
 	#endregion
 	

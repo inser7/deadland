@@ -33,7 +33,7 @@ public class WeaponController : MonoBehaviour {
 			timeToFire = Time.time + rateOfFire;
 			//var cloneBullet  = 
 				Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
-			Debug.Log("shooting");
+			//Debug.Log("shooting");
 		}
 	}
 	#endregion
