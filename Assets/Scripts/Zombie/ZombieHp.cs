@@ -7,7 +7,7 @@ public class ZombieHp : MonsterHp {
 	private float currentHp; // текущее значение здоровья
 //	private Transform thisTransform;
 	private Animator anim;		
-	public GameObject[] blood;
+	public GameObject[] blood; //массив с кровягами
 	public GameObject shoot; //префаб с анимацией выстрела
 	// Use this for initialization
 	void Start () {
@@ -20,8 +20,8 @@ public class ZombieHp : MonsterHp {
 	}
 	public override bool SetDamage(BulletFly bullet){
 		currentHp = currentHp - bullet.damage; // Отнимаем домаг от здоровья
-		//var bloodIndex = Random.Range(0, blood.Length);
-		//Instantiate(blood[bloodIndex], transform.position, transform.rotation);
+		var bloodIndex = Random.Range(0, blood.Length);
+		Instantiate(blood[bloodIndex], transform.position, transform.rotation);
 		Vector3 shootPos = new Vector3 (transform.position.x + bullet.forwardDirection.x, 
 		                                transform.position.y + bullet.forwardDirection.y, 
 		                               transform.position.z);
