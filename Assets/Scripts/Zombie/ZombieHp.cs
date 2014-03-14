@@ -8,6 +8,7 @@ public class ZombieHp : MonsterHp {
 //	private Transform thisTransform;
 	private Animator anim;		
 	public GameObject[] blood;
+	public GameObject shoot; //префаб с анимацией выстрела
 	// Use this for initialization
 	void Start () {
 		
@@ -19,9 +20,10 @@ public class ZombieHp : MonsterHp {
 	}
 	public override bool SetDamage(float damage){
 		currentHp = currentHp - damage; // Отнимаем домаг от здоровья
-		var enemyIndex = Random.Range(0, blood.Length);
-		Instantiate(blood[enemyIndex], transform.position, transform.rotation);
-	//	Debug.Log(currentHp);
+		//var bloodIndex = Random.Range(0, blood.Length);
+		//Instantiate(blood[bloodIndex], transform.position, transform.rotation);
+
+		Instantiate(shoot, transform.position, transform.rotation); // выстрел
 		if (currentHp > 0) {
 			return true;
 		} 
