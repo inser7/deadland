@@ -4,6 +4,8 @@ using System.Collections;
 public class HeroControllerScript : MonoBehaviour 
 {
 	#region Fields
+	//урон при бортовании за счет пули
+	//public BulletFly bullet;
 	//переменная для установки макс. скорости персонажа
 	public float maxSpeed = 10.0f; 
 	//угол поворота
@@ -32,6 +34,19 @@ public class HeroControllerScript : MonoBehaviour
 	}
 	#endregion
 
+	#region void OnCollisionEnter2D (Collision2D myCollision)
+	/*void OnCollisionEnter2D (Collision2D myCollision){
+		MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
+		//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
+		//BulletFly bullet = myCollision.gameObject.GetComponent<BulletFly> ();
+		if (collisionBehaviour) 
+		{//Если MonsterBehaviour eсть
+			//collisionBehaviour.SetDamage(bullet);
+			Debug.Log("Ты сбил зомби");
+		}
+	}*/
+	#endregion
+
 	#region private void FixedUpdate()
 	private void FixedUpdate()
 	{
@@ -40,7 +55,7 @@ public class HeroControllerScript : MonoBehaviour
 		if (Mathf.Abs (moveDirection.y) > 0.0f) 
 		{ //если двигаемся вперед
 			anim.SetFloat ("Speed", Mathf.Abs (moveDirection.y));		
-			heroSound.pitch = 1.0f + 0.2f* Mathf.Abs (moveDirection.y);
+			heroSound.pitch = 0.5f + 0.2f* Mathf.Abs (moveDirection.y);
 			rigidbody2D.velocity = forwardDirection * maxSpeed * moveDirection.y;
 		}
 					

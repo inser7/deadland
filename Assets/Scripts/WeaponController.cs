@@ -31,7 +31,9 @@ public class WeaponController : MonoBehaviour {
 		if (Input.GetButton ("Fire1")) 
 		{ 
 			timeToFire = Time.time + rateOfFire;
-			var cloneBullet  = Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
+			//var cloneBullet  = 
+				Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
+			Debug.Log("shooting");
 		}
 	}
 	#endregion
