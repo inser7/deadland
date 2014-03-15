@@ -4,6 +4,8 @@ using System.Collections;
 public class HeroControllerScript : MonoBehaviour 
 {
 	#region Fields
+	//след от гусениц
+	public GameObject sled;
 	//урон при бортовании за счет пули
 	//public BulletFly bullet;
 	//переменная для установки макс. скорости персонажа
@@ -14,6 +16,11 @@ public class HeroControllerScript : MonoBehaviour
 	public float currentZRotation = 0.0f; 
 	//направление движения
 	public Vector2 forwardDirection = new Vector2 (0.0f, 1.0f);
+
+
+	
+	private float timeToCreateSled = 0.0f;
+	public float timeRate = 0.0f;
 
 	private Transform heroTransform;
 	private AudioSource heroSound;
@@ -29,7 +36,7 @@ public class HeroControllerScript : MonoBehaviour
 		anim = GetComponent<Animator>();
 		heroTransform = rigidbody2D.transform;
 		currentZRotation = heroTransform.rotation.eulerAngles.z;
-
+		timeToCreateSled = Time.time + timeRate;
 		heroSound = audio;
 	}
 	#endregion
@@ -85,6 +92,14 @@ public class HeroControllerScript : MonoBehaviour
 
 
 			heroTransform.rotation= Quaternion.Euler(0.0f, 0.0f,  currentZRotation );
+		}
+
+		if( (Mathf.Abs (moveDirection.y) > 0.0f) || ( Mathf.Abs( moveDirection.x ) > 0.0f) )
+		if( Time.time > timeToCreateSled )
+		{
+			timeToCreateSled = Time.time + timeRate;
+			var cloneSound  =  Instantiate( sled, heroTransform.position, heroTransform.rotation);
+			Destroy(cloneSound, 2.0f);
 		}
 	}
 	#endregion
