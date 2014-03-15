@@ -22,8 +22,8 @@ public class ZombieHp : MonsterHp {
 		currentHp = currentHp - bullet.damage; // Отнимаем домаг от здоровья
 		var bloodIndex = Random.Range(0, blood.Length);
 		Instantiate(blood[bloodIndex], transform.position, transform.rotation);
-		Vector3 shootPos = new Vector3 (transform.position.x + bullet.forwardDirection.x, 
-		                                transform.position.y + bullet.forwardDirection.y, 
+		Vector3 shootPos = new Vector3 (transform.position.x + bullet.forwardDirection.x * shoot.transform.localScale.y , 
+		                                transform.position.y + bullet.forwardDirection.y * shoot.transform.localScale.y, 
 		                               transform.position.z);
 		Instantiate(shoot, shootPos, bullet.transform.rotation ); // выстрел
 		if (currentHp > 0) {

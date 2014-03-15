@@ -37,6 +37,7 @@ public class BulletFly : MonoBehaviour {
 	#region void OnCollisionEnter2D (Collision2D myCollision)
 	void OnCollisionEnter2D (Collision2D myCollision)
 	{
+
 		if (myCollision.gameObject.tag == "zombie") 
 		{
 			MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
@@ -44,12 +45,13 @@ public class BulletFly : MonoBehaviour {
 			if (collisionBehaviour) 
 			{//Если MonsterBehaviour eсть			
 				collisionBehaviour.SetDamage (this);
+				//collisionBehaviour.gameObject.SendMessage("SetDamage", this);
 			}
 			Destroy (gameObject);//после попадания в любой обьект, патрон исчещает		
 		}
 	}
 	#endregion
-	
+
 	// Update is called once per frame
 	#region private void FixedUpdate()
 	private void FixedUpdate()

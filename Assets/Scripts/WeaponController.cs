@@ -8,6 +8,7 @@ public class WeaponController : MonoBehaviour {
 		public float rateOfFire = 0.1f;
 		private float timeToFire;
 		private Transform weaponTransform;
+		//private AudioSource weaponAudio;
 	#endregion
 
 	#region void Start ()
@@ -15,6 +16,7 @@ public class WeaponController : MonoBehaviour {
 	{
 		timeToFire = Time.time + rateOfFire;
 		weaponTransform = transform;
+		//weaponAudio = GetComponent<AudioSource> ();
 	}
 	#endregion
 
@@ -30,6 +32,7 @@ public class WeaponController : MonoBehaviour {
 		if(Time.time > timeToFire)
 		if (Input.GetButton ("Fire1")) 
 		{ 
+			//weaponAudio.Play();
 			timeToFire = Time.time + rateOfFire;
 			//var cloneBullet  = 
 				Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);

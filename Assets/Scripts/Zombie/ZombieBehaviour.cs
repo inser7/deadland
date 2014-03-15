@@ -44,4 +44,19 @@ public class ZombieBehaviour : MonsterBehaviour {
 				else
 						return false;
 	}
+
+	#region void OnCollisionEnter2D (Collision2D myCollision)
+	/*void OnCollisionEnter2D (Collision2D myCollision)
+	{
+		//Debug.Log ("Zombie OnCollisionEnter2d");
+		//MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
+			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
+			//BulletFly bullet = myCollision.gameObject.GetComponent<BulletFly> ();
+		if (myCollision.gameObject.tag == "Player") 
+		{
+			Debug.Log("Ты сбил зомби");
+		}
+
+	}*/
+	#endregion
 }
