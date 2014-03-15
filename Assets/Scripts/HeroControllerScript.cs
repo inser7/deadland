@@ -60,7 +60,7 @@ public class HeroControllerScript : MonoBehaviour
 		if (Mathf.Abs (moveDirection.y) > 0.0f) 
 		{ //если двигаемся вперед
 			anim.SetFloat ("Speed", Mathf.Abs (moveDirection.y));		
-			heroSound.pitch = 0.5f + 0.2f* Mathf.Abs (moveDirection.y);
+			heroSound.pitch = 0.3f + 0.2f* Mathf.Abs (moveDirection.y);
 			rigidbody2D.velocity = forwardDirection * maxSpeed * moveDirection.y;
 		}
 					

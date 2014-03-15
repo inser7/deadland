@@ -6,6 +6,7 @@ public class WeaponController : MonoBehaviour {
 	#region Fields
 		public GameObject bullet;
 		public float rateOfFire = 0.1f;
+		public GameObject gunshot;
 		private float timeToFire;
 		private Transform weaponTransform;
 		//private AudioSource weaponAudio;
@@ -35,7 +36,9 @@ public class WeaponController : MonoBehaviour {
 			//weaponAudio.Play();
 			timeToFire = Time.time + rateOfFire;
 			//var cloneBullet  = 
-				Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
+			Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
+			var cloneSound  =  Instantiate( gunshot, weaponTransform.position, weaponTransform.rotation);
+			Destroy(cloneSound, 0.7f);
 			//Debug.Log("shooting");
 		}
 	}
