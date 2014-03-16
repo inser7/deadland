@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ZombieHp : MonsterHp {
+public class ZombieHp : MonsterHp
+{
 
-	public float originalHp = 100f; // Начальные значения здоровья(не меняется в ходе игры)
+    #region Fields
+
+    public float originalHp = 100f; // Начальные значения здоровья(не меняется в ходе игры)
 	private float currentHp; // текущее значение здоровья
 //	private Transform thisTransform;
 	private Animator anim;		
 	public GameObject[] blood; //массив с кровягами
 	public GameObject shoot; //префаб с анимацией выстрела
-	// Use this for initialization
+
+    #endregion
+    // Use this for initialization
 	void Start () {
 		
 		//thisTransform = transform;

@@ -5,7 +5,8 @@ public class ZombieWalk : MonoBehaviour
 
     #region Fields
 
-    public float moveSpeed;
+    public float mobMinSpeed = 0.5f; //минимальная скорость моба
+    public float mobMaxSpeed = 2.0f; //максимальная скорость моба
     public float turnSpeed;
     public Transform target;
 
@@ -16,6 +17,7 @@ public class ZombieWalk : MonoBehaviour
 	//private Rigidbody2D rigidbdy;
 
 	private Collider2D[] cols;
+    private float MobCurrentSpeed; //скорость моба, инициализируем позже
 
     #endregion
 
@@ -34,6 +36,8 @@ public class ZombieWalk : MonoBehaviour
         moveDirection = Vector3.up;
 		myTransform = this.transform; //кэш
 		cols= GetComponents<Collider2D>(); // кэш
+
+        MobCurrentSpeed = Random.Range(mobMinSpeed, mobMaxSpeed); //посредством рандома выбираем скорость между минимально и максимально указанной
     }
 
     #endregion
@@ -89,13 +93,18 @@ public class ZombieWalk : MonoBehaviour
         }
           */
 						#endregion
-
+                        var angle = 0;
 						moveDirection = go.transform.position - currentPosition;
+                        moveDirection.x = moveDirection.x * Mathf.Sin(angle);
+                        moveDirection.y = moveDirection.y * Mathf.Cos(angle);
 						moveDirection.z = 0;
 						moveDirection.Normalize ();
 
-						var playerTarget = moveDirection * moveSpeed + currentPosition;
+                        angle += 10;
+
+                        var playerTarget = moveDirection * MobCurrentSpeed + currentPosition;
 //        Debug.Log(playerTarget);
+
 						transform.position = Vector3.Lerp(currentPosition, playerTarget, Time.deltaTime);
 
 						var targetAngle = Mathf.Atan2 (moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
