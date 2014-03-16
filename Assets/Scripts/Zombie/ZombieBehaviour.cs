@@ -8,12 +8,19 @@ public class ZombieBehaviour : MonsterBehaviour {
 
 	
 	private bool isLive = true;//флаг, показывающий жив или мерт моб
-
+	
 	private Transform thisTransform; 
 	// Use this for initialization
 	void Start () {
 		//Debug.Log ("ZombieBehaviour");
 		thisHp = GetComponent<MonsterHp>();
+
+		//для веселья цвет меняем рандомно
+		var spriteClr = GetComponent<SpriteRenderer> ().color;
+		spriteClr.r = Random.Range (0, 10) / 10.0f;
+		spriteClr.g = Random.Range (0, 10) / 10.0f;
+		spriteClr.b = Random.Range (0, 10) / 10.0f;
+		GetComponent<SpriteRenderer> ().color = spriteClr;
 	}
 	
 	// Update is called once per frame

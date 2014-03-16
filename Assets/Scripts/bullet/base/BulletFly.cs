@@ -47,7 +47,8 @@ public class BulletFly : MonoBehaviour {
 				collisionBehaviour.SetDamage (this);
 				//collisionBehaviour.gameObject.SendMessage("SetDamage", this);
 			}
-			Destroy (gameObject);//после попадания в любой обьект, патрон исчещает		
+			//после попадания в любой обьект, патрон исчезает	
+			Destroy (gameObject);	
 		}
 	}
 	#endregion
@@ -56,7 +57,9 @@ public class BulletFly : MonoBehaviour {
 	#region private void FixedUpdate()
 	private void FixedUpdate()
 	{	
-		rigidbody2D.velocity = forwardDirection * maxSpeed;
+		//движемся в направлении клика
+		rigidbody2D.velocity = forwardDirection * maxSpeed; 
+		//если время жизни закончилось, уничтожаем снаряд
 		if (Time.time > timeToLive)
 			Destroy (gameObject);
 	}
