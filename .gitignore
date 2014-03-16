@@ -16,6 +16,7 @@ ExportedObj/
 *.user
 *.unityproj
 *.booproj
+*.DotSettings
  
 # -------------[ OS generated ]------------------------ #
 .DS_Store
