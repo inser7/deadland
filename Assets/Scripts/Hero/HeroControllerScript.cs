@@ -102,7 +102,7 @@ public class HeroControllerScript : MonoBehaviour
 		}
 
 		//если двигаемся, то оставляем след от гусениц
-		/*if( (Mathf.Abs (moveDirection.y) > 0.0f) || ( Mathf.Abs( moveDirection.x ) > 0.0f) )
+		if( (Mathf.Abs (moveDirection.y) > 0.0f) || ( Mathf.Abs( moveDirection.x ) > 0.0f) )
 		if( Time.time > timeToCreateTrail )
 		{ //если пришло время создавать след
 			timeToCreateTrail = Time.time + trailRate;
@@ -110,7 +110,7 @@ public class HeroControllerScript : MonoBehaviour
 			var cloneTrail  =  Instantiate( trail, heroTransform.position, heroTransform.rotation);
 			//уничтожаем след через 2 секунды
 			Destroy(cloneTrail, 2.0f);
-		}*/
+		}
 	}
 	#endregion
 }
