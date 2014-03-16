@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class HeroControllerScript : MonoBehaviour 
@@ -38,7 +38,7 @@ public class HeroControllerScript : MonoBehaviour
 		currentZRotation = heroTransform.rotation.eulerAngles.z;
 		timeToCreateTrail = Time.time + trailRate;
 		heroSound = audio;
-
+	
 	}
 	#endregion
 

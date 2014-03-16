@@ -6,6 +6,7 @@ public class BulletFly : MonoBehaviour {
 	#region Fields
 	public float maxSpeed = 20.0f; 
 	public float damage = 30.0f;
+	public float damageRadius = 1;
 	public Vector2 forwardDirection = new Vector2 (0.0f, 1.0f);
 	public float timeToDie = 1.0f;
 	private float timeToLive;
@@ -25,8 +26,8 @@ public class BulletFly : MonoBehaviour {
 		float newY 	= forwardDirection.x * Mathf.Sin( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) ) 
 					+ forwardDirection.y * Mathf.Cos( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) );
 		
-		startPos.x += newX * 3;
-		startPos.y += newY * 3;
+		startPos.x += newX * 2;
+		startPos.y += newY * 2;
 		bulletTransform.position = startPos;
 		forwardDirection = new Vector2( newX, newY ) ;
 		

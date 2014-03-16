@@ -6,6 +6,8 @@ public class WeaponController : MonoBehaviour {
 	#region Fields
 		// объект пули для выстрела
 		public GameObject bullet;
+		//будет ли оружие поворачиваться за мышкой?
+		public bool fixedAngle = true;
 		//скорострельность
 		public float rateOfFire = 0.1f;
 		//объект для звука выстрела
@@ -13,6 +15,8 @@ public class WeaponController : MonoBehaviour {
 		//время выстрела
 		private float timeToFire;
 		private Transform weaponTransform;
+		private Vector3 trackorForward;
+		private GameObject tracktor;
 		//private AudioSource weaponAudio;
 	#endregion
 
@@ -21,6 +25,9 @@ public class WeaponController : MonoBehaviour {
 	{
 		timeToFire = Time.time + rateOfFire;
 		weaponTransform = transform;
+	    tracktor = GameObject.Find ("Hero");
+
+
 		//weaponAudio = GetComponent<AudioSource> ();
 	}
 	#endregion
@@ -30,7 +37,14 @@ public class WeaponController : MonoBehaviour {
 	void Update () 
 	{
 		//находим направление цели оружия
-		Vector3 lookDirection = Camera.main.ScreenToWorldPoint (Input.mousePosition) - weaponTransform.position;
+		Vector3 lookDirection;
+		if (!fixedAngle)
+						lookDirection = Camera.main.ScreenToWorldPoint (Input.mousePosition) - weaponTransform.position;
+				else {
+			Vector2 localTracktorLookAt = tracktor.GetComponent<HeroControllerScript> ().forwardDirection;
+						trackorForward = new Vector3 (localTracktorLookAt.x, localTracktorLookAt.y, 0.0f);
+						lookDirection = trackorForward;
+				}
 		var currentZRotation = Mathf.Atan2(lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90;
 		weaponTransform.rotation= Quaternion.Euler(0.0f, 0.0f,  currentZRotation );
 
