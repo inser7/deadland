@@ -93,14 +93,14 @@ public class ZombieWalk : MonoBehaviour
         }
           */
 						#endregion
-                        var angle = 0;
+                     //   var angle = 0;
 						moveDirection = go.transform.position - currentPosition;
-                        moveDirection.x = moveDirection.x * Mathf.Sin(angle);
-                        moveDirection.y = moveDirection.y * Mathf.Cos(angle);
+                       // moveDirection.x = moveDirection.x * Mathf.Sin(angle);
+                       // moveDirection.y = moveDirection.y * Mathf.Cos(angle);
 						moveDirection.z = 0;
 						moveDirection.Normalize ();
 
-                        angle += 10;
+                      //  angle += 10;
 
                         var playerTarget = moveDirection * MobCurrentSpeed + currentPosition;
 //        Debug.Log(playerTarget);
@@ -109,8 +109,7 @@ public class ZombieWalk : MonoBehaviour
 
 						var targetAngle = Mathf.Atan2 (moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
 
-						transform.rotation = Quaternion.Slerp (transform.rotation,
-            Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
+						transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
 				} 
 		else {
 
