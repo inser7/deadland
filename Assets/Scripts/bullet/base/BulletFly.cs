@@ -26,8 +26,8 @@ public class BulletFly : MonoBehaviour {
 		float newY 	= forwardDirection.x * Mathf.Sin( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) ) 
 					+ forwardDirection.y * Mathf.Cos( Mathf.Deg2Rad * ( bulletTransform.rotation.eulerAngles.z ) );
 		
-		startPos.x += newX * 2;
-		startPos.y += newY * 2;
+		startPos.x += newX * 1.2f ;
+		startPos.y += newY * 1.2f;
 		bulletTransform.position = startPos;
 		forwardDirection = new Vector2( newX, newY ) ;
 		
