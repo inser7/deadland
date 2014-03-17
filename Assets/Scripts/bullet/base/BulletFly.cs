@@ -36,9 +36,9 @@ public class BulletFly : MonoBehaviour {
 	#endregion
 
 	#region void OnCollisionEnter2D (Collision2D myCollision)
-	void OnCollisionEnter2D (Collision2D myCollision)
+	void OnCollisionEnter2D  (Collision2D  myCollision)
 	{
-
+		//if (myCollision.gameObject.name == "Hero") myCollision.
 		if (myCollision.gameObject.tag == "zombie") 
 		{
 			MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
@@ -48,9 +48,9 @@ public class BulletFly : MonoBehaviour {
 				collisionBehaviour.SetDamage (this);
 				//collisionBehaviour.gameObject.SendMessage("SetDamage", this);
 			}
-			//после попадания в любой обьект, патрон исчезает	
-			Destroy (gameObject);	
 		}
+		//после попадания в любой обьект, патрон исчезает	
+		Destroy (gameObject);
 	}
 	#endregion
 

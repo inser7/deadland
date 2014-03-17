@@ -59,10 +59,10 @@ public class ZombieBehaviour : MonsterBehaviour {
 		//MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
 			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
 			//BulletFly bullet = myCollision.gameObject.GetComponent<BulletFly> ();
-		//if (myCollision.gameObject.tag == "Player") 
-//		{
-//			Debug.Log("Ты сбил зомби");
-//		}
+		if (myCollision.gameObject.tag == "Player") 
+		{
+			Debug.Log("Ты сбил зомби");
+		}
 
 	}*/
 	#endregion

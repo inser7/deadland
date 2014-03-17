@@ -46,18 +46,19 @@ public class HeroControllerScript : MonoBehaviour
 	//OnCollisionStay  OnCollisionExit
 	/*void OnCollisionEnter2D (Collision2D myCollision)
 	{
-		Debug.Log ("Hero OnCollisionEnter2d");
-			/*MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
+
+			MonsterBehaviour collisionBehaviour = myCollision.gameObject.GetComponent<MonsterBehaviour> ();
 			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
 			//BulletFly bullet = myCollision.gameObject.GetComponent<BulletFly> ();
 			if (collisionBehaviour) 
 			{//Если MonsterBehaviour eсть
 				//collisionBehaviour.SetDamage(bullet);
+			Debug.Log ("Ur picking up a zombie. its dead... probably");
 
 			}
-				/
-	}*/
-
+				
+	}
+*/
 	#endregion
 
 	#region private void FixedUpdate()
