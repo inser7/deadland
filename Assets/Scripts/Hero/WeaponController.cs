@@ -8,6 +8,8 @@ public class WeaponController : MonoBehaviour {
 		public GameObject bullet;
 		//будет ли оружие поворачиваться за мышкой?
 		public bool fixedAngle = true;
+		//основное или альтернативное
+		public bool isAlternative = false;
 		//скорострельность
 		public float rateOfFire = 0.1f;
 		//объект для звука выстрела
@@ -49,7 +51,8 @@ public class WeaponController : MonoBehaviour {
 		weaponTransform.rotation= Quaternion.Euler(0.0f, 0.0f,  currentZRotation );
 
 		//если пора стрелять и ЛКМ нажата
-		if( (Time.time > timeToFire) && (Input.GetButton ("Fire1")) )
+		if( (Time.time > timeToFire) && 
+		   ((Input.GetButton ("Fire1") && !isAlternative ) || (Input.GetButton ("Fire2") && isAlternative ) )  )
 		{ 
 			timeToFire = Time.time + rateOfFire;
 			//запускаем снаряд 
