@@ -38,7 +38,7 @@ public class ZombieBehaviour : MonsterBehaviour {
 			}
 			else
 			{
-				Debug.Log("Моб мертв");
+				//Debug.Log("Моб мертв");
 				isLive = false;
 			}
 		}
