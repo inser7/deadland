@@ -25,7 +25,7 @@ public class Graphics : MonoBehaviour {
 
     private void OnGUI(){
         GUI.Box(playerStats, "Player Stats");
-        GUI.Label(playerStatsPlayerMoney, "Money: " + "0$");
+        GUI.Label(playerStatsPlayerMoney, "Money: " + globalVars.credits + "$");
 
     }
 }

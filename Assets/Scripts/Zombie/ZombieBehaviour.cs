@@ -5,7 +5,7 @@ public class ZombieBehaviour : MonsterBehaviour {
 
 	public MonsterHp thisHp; //Переменная для хранения скрипта отвечающего за здоровье
 	public float monsterSpeed = 3;//скоросто движения монстра
-
+	public uint price = 1; // цена за зомби
 	
 	private bool isLive = true;//флаг, показывающий жив или мерт моб
 	
@@ -38,6 +38,7 @@ public class ZombieBehaviour : MonsterBehaviour {
 			}
 			else
 			{
+				globalVars.credits += price;
 				Debug.Log("Моб мертв");
 				isLive = false;
 			}
