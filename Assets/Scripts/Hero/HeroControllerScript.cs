@@ -10,6 +10,12 @@ public class HeroControllerScript : MonoBehaviour
 	//public BulletFly bullet;
 	//переменная для установки макс. скорости персонажа
 	public float maxSpeed = 10.0f; 
+	//ускорение нитро
+	public float nitroSpeed = 5.0f;
+	//запас нитро
+	public float nitroStock = 30.0f; 
+	//текущее кол-вол нитро
+	private float currenNitroStock;
 	//угол поворота
 	public float turnAngle = 5.0f; 
 	//текущий угол
@@ -38,6 +44,8 @@ public class HeroControllerScript : MonoBehaviour
 		currentZRotation = heroTransform.rotation.eulerAngles.z;
 		timeToCreateTrail = Time.time + trailRate;
 		heroSound = audio;
+
+		currenNitroStock = nitroStock;
 	
 	}
 	#endregion
@@ -66,14 +74,21 @@ public class HeroControllerScript : MonoBehaviour
 	{
 		Vector2 moveDirection 	= new Vector2 ( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
 		//если двигаемся вперед
+
 		if (Mathf.Abs (moveDirection.y) > 0.0f) 
 		{ 
 			//вкл анимацию гусениц
-			anim.SetFloat ("Speed", Mathf.Abs (moveDirection.y));		
+			anim.SetFloat ("Speed", Mathf.Abs (moveDirection.y));
+			bool isNitroOn = Input.GetKey( KeyCode.LeftShift );
+			float nitro = ( isNitroOn && ( currenNitroStock > 0 ) )? nitroSpeed : 0;
 			//добавляем "Газу" при звучании
-			heroSound.pitch = 0.3f + 0.2f* Mathf.Abs (moveDirection.y);
+			heroSound.pitch = 0.3f + 0.2f* Mathf.Abs (moveDirection.y + nitro * 0.1f * moveDirection.y );// +  * 0.2f * moveDirection.y ;
 			//двигаемся вперед
-			rigidbody2D.velocity = forwardDirection * maxSpeed * moveDirection.y;
+			rigidbody2D.velocity = forwardDirection * maxSpeed * moveDirection.y + forwardDirection * moveDirection.y * nitro;
+			if( isNitroOn && currenNitroStock > 0.0f )
+			{   //нитро кончается
+				currenNitroStock -= 0.01f;
+			}
 		}
 		//если поворачиваем		
 		if( Mathf.Abs( moveDirection.x ) > 0.0f) 

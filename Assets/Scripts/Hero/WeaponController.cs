@@ -15,7 +15,7 @@ public class WeaponController : MonoBehaviour {
 		//объект для звука выстрела
 		public GameObject gunshot;
 		//время выстрела
-		private float timeToFire;
+		private float reloadTime;
 		private Transform weaponTransform;
 		private Vector3 trackorForward;
 		private GameObject tracktor;
@@ -25,7 +25,7 @@ public class WeaponController : MonoBehaviour {
 	#region void Start ()
 	void Start () 
 	{
-		timeToFire = Time.time + rateOfFire;
+		reloadTime = Time.time + rateOfFire;
 		weaponTransform = transform;
 	    tracktor = GameObject.Find ("Hero");
 
@@ -51,10 +51,10 @@ public class WeaponController : MonoBehaviour {
 		weaponTransform.rotation= Quaternion.Euler(0.0f, 0.0f,  currentZRotation );
 
 		//если пора стрелять и ЛКМ нажата
-		if( (Time.time > timeToFire) && 
+		if( (Time.time > reloadTime) && 
 		   ((Input.GetButton ("Fire1") && !isAlternative ) || (Input.GetButton ("Fire2") && isAlternative ) )  )
 		{ 
-			timeToFire = Time.time + rateOfFire;
+			reloadTime = Time.time + rateOfFire;
 			//запускаем снаряд 
 			Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
 			//запускаем звук выстрела

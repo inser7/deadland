@@ -7,8 +7,8 @@ public class GameCamera : MonoBehaviour
     #region Fields
 
 	public Transform target;
-	public float distanceXToTarget = 1.0f;
-	public float distanceYToTarget = 1.0f;
+	public float distanceXToTarget = 0.0f;
+	public float distanceYToTarget = 0.0f;
     private float trackSpeed = 1;
 	private Transform cameraTransform;
     #endregion
@@ -31,29 +31,35 @@ public class GameCamera : MonoBehaviour
 
     #endregion
 
-	
-	float newX = 0.0f;
-	float newY = 0.0f;
 
-    #region Track Target
+	#region Track Target
     void LateUpdate()
     {
         if (!target) 
 			return;
+		//
+		float xD = distanceXToTarget - Mathf.Abs( target.position.x - cameraTransform.position.x );
+		float yD = distanceYToTarget - Mathf.Abs (target.position.y - cameraTransform.position.y);
+		int signX = target.position.x - cameraTransform.position.x > 0 ? -1 : 1;
+		int signY = target.position.y - cameraTransform.position.y > 0 ? -1 : 1;
+		//если вышли за границы
+		bool isOutOfX = Mathf.Abs (target.position.x - cameraTransform.position.x ) > distanceXToTarget;
+		bool isOutOfY = Mathf.Abs (target.position.y - cameraTransform.position.y ) > distanceYToTarget;
+		Vector3 newCamPos = cameraTransform.position;
 
-		if (Mathf.Abs (target.position.x - cameraTransform.position.x ) > distanceXToTarget)
-			newX = target.position.x;
-		if (Mathf.Abs (cameraTransform.position.y - target.position.y) > distanceYToTarget)
-			newY = target.position.y;
+		if(isOutOfX) newCamPos = new Vector3( newCamPos.x + xD * signX, 
+		                                     newCamPos.y , 
+		                                     newCamPos.z);
+		if(isOutOfY) newCamPos = new Vector3( newCamPos.x , 
+		                                     newCamPos.y + yD * signY, 
+		                                     newCamPos.z);
 
-
-		cameraTransform.position = Vector3.Lerp (cameraTransform.position, new Vector3 (newX, newY, 0.0f),  Time.deltaTime );
-		/*
-		if( Vector3.Magnitude( cameraTransform.position - target.position ) > distanceYToTarget )
+		if( isOutOfX || isOutOfY )
 		{
-			cameraTransform.position = Vector3.Lerp( cameraTransform.position, target.position, Time.deltaTime * 2.0f );
+			cameraTransform.position = Vector3.Lerp( cameraTransform.position, newCamPos, Time.deltaTime * 2.0f );
+			
 		}
-       */
+
 	}
     #endregion
 }
