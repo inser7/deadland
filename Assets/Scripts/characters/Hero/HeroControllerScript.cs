@@ -69,6 +69,7 @@ public class HeroControllerScript : MonoBehaviour
 */
 	#endregion
 
+	float nitro = 0.0f;
 	#region private void FixedUpdate()
 	private void FixedUpdate()
 	{
@@ -80,14 +81,14 @@ public class HeroControllerScript : MonoBehaviour
 			//вкл анимацию гусениц
 			anim.SetFloat ("Speed", Mathf.Abs (moveDirection.y));
 			bool isNitroOn = Input.GetKey( KeyCode.LeftShift );
-			float nitro = ( isNitroOn && ( currenNitroStock > 0 ) )? nitroSpeed : 0;
+			nitro = ( isNitroOn && ( currenNitroStock > 0 ) )? Mathf.Lerp(nitro, nitroSpeed, Time.deltaTime * 2) : 0;
 			//добавляем "Газу" при звучании
-			heroSound.pitch = 0.3f + 0.2f* Mathf.Abs (moveDirection.y + nitro * 0.1f * moveDirection.y );// +  * 0.2f * moveDirection.y ;
+			heroSound.pitch = 0.3f + 0.2f*( Mathf.Abs (moveDirection.y)  + nitro * 0.1f );// +  * 0.2f * moveDirection.y ;
 			//двигаемся вперед
-			rigidbody2D.velocity = forwardDirection * maxSpeed * moveDirection.y + forwardDirection * moveDirection.y * nitro;
+			rigidbody2D.velocity = forwardDirection * maxSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 			if( isNitroOn && currenNitroStock > 0.0f )
 			{   //нитро кончается
-				currenNitroStock -= 0.01f;
+				currenNitroStock -= 0.1f;
 			}
 		}
 		//если поворачиваем		

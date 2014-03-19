@@ -5,10 +5,10 @@ public class CBaseCharacter : MonoBehaviour {
 
 	#region fields
 	//здоровье персонажа
-	public CBaseHP hitPoints;
+	protected CBaseHP hitPoints;
 	
 	//щит персонажа если есть
-	//public CBaseHP shield;
+	//protected CBaseHP shield;
 	//основное оружие
 	//publc CBaseWeapon mainWeapon;
 
@@ -38,6 +38,9 @@ public class CBaseCharacter : MonoBehaviour {
 	{
 		thisTransform = transform;
 		thisAnimator = GetComponent<Animator> ();
+		/*GameObject obj = GameObject.FindGameObjectWithTag ("Player");
+		moveDirection = obj.transform.position;
+		moveDirection.Normalize ();*/
 	}
 	#endregion
 	
@@ -45,7 +48,11 @@ public class CBaseCharacter : MonoBehaviour {
 	#region void Update ()
 	void Update () 
 	{
-	
+		//тестирую просто мувТу
+		moveDirection =  GameObject.FindGameObjectWithTag ("Player").transform.position - thisTransform.position;
+		moveDirection.z = 0.0f;
+		moveDirection.Normalize ();
+		moveTo ();
 	}
 	#endregion
 }
