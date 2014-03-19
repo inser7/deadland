@@ -6,9 +6,10 @@ public class GameCamera : MonoBehaviour
 
     #region Fields
 
-    public Transform target;
-	public float distanceToTarget = 5.0f;
-    private float trackSpeed = 10;
+	public Transform target;
+	public float distanceXToTarget = 1.0f;
+	public float distanceYToTarget = 1.0f;
+    private float trackSpeed = 1;
 	private Transform cameraTransform;
     #endregion
 
@@ -30,22 +31,29 @@ public class GameCamera : MonoBehaviour
 
     #endregion
 
+	
+	float newX = 0.0f;
+	float newY = 0.0f;
+
     #region Track Target
     void LateUpdate()
     {
         if (!target) 
-            return;
+			return;
 
-		if( Vector3.Magnitude( cameraTransform.position - target.position ) > distanceToTarget )
+		if (Mathf.Abs (target.position.x - cameraTransform.position.x ) > distanceXToTarget)
+			newX = target.position.x;
+		if (Mathf.Abs (cameraTransform.position.y - target.position.y) > distanceYToTarget)
+			newY = target.position.y;
+
+
+		cameraTransform.position = Vector3.Lerp (cameraTransform.position, new Vector3 (newX, newY, 0.0f),  Time.deltaTime );
+		/*
+		if( Vector3.Magnitude( cameraTransform.position - target.position ) > distanceYToTarget )
 		{
 			cameraTransform.position = Vector3.Lerp( cameraTransform.position, target.position, Time.deltaTime * 2.0f );
 		}
-       /* var v = transform.position;
-        v.x = target.position.x;
-        v.y = target.position.y;
-
-        transform.position = Vector3.MoveTowards(transform.position, v, trackSpeed * Time.deltaTime);
-		*/
+       */
 	}
     #endregion
 }
