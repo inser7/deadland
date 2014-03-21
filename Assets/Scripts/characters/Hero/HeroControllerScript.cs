@@ -4,6 +4,9 @@ using System.Collections;
 public class HeroControllerScript : MonoBehaviour 
 {
 	#region Fields
+
+	//Слайдер нитро
+	public UISlider NitroSlider;
 	//след от гусениц
 	public GameObject trail;
 	//урон при бортовании за счет пули
@@ -13,7 +16,7 @@ public class HeroControllerScript : MonoBehaviour
 	//ускорение нитро
 	public float nitroSpeed = 5.0f;
 	//запас нитро
-	public float nitroStock = 30.0f; 
+	public float nitroStock = 30f; 
 	//текущее кол-вол нитро
 	private float currenNitroStock;
 	//угол поворота
@@ -89,6 +92,8 @@ public class HeroControllerScript : MonoBehaviour
 			if( isNitroOn && currenNitroStock > 0.0f )
 			{   //нитро кончается
 				currenNitroStock -= 0.1f;
+				NitroSlider.sliderValue =currenNitroStock/nitroStock; // значение слайдера уменьшаем
+				//
 			}
 		}
 		//если поворачиваем		
