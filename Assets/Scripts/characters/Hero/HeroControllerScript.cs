@@ -92,8 +92,7 @@ public class HeroControllerScript : MonoBehaviour
 			if( isNitroOn && currenNitroStock > 0.0f )
 			{   //нитро кончается
 				currenNitroStock -= 0.1f;
-				NitroSlider.sliderValue =currenNitroStock/nitroStock; // значение слайдера уменьшаем
-				//
+
 			}
 		}
 		//если поворачиваем		
@@ -133,6 +132,9 @@ public class HeroControllerScript : MonoBehaviour
 			//уничтожаем след через 2 секунды
 			Destroy(cloneTrail, 2.0f);
 		}
+
+		NitroSlider.sliderValue =currenNitroStock/nitroStock; // значение слайдера уменьшаем
+		//
 	}
 	#endregion
 }
