@@ -52,7 +52,7 @@ public class WeaponController : MonoBehaviour {
 
 		//если пора стрелять и ЛКМ нажата
 		if( (Time.time > reloadTime) && 
-		   ((Input.GetButton ("Fire1") && !isAlternative ) || (Input.GetButton ("Fire2") && isAlternative ) )  )
+		   ((Input.GetButton ("Fire1") && !isAlternative ) || (Input.GetKey (KeyCode.Space) && isAlternative ) )  )
 		{ 
 			reloadTime = Time.time + rateOfFire;
 			//запускаем снаряд 

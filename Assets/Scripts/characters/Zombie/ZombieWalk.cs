@@ -120,6 +120,7 @@ public class ZombieWalk : MonoBehaviour
 				c.isTrigger = true;
 			}
 
+
 			Destroy (myTransform.rigidbody2D);
 				
 		}

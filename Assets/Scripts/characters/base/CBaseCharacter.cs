@@ -32,6 +32,14 @@ public class CBaseCharacter : MonoBehaviour {
 	}
 	#endregion
 
+	//смотрим в направлении движения
+	#region void lookAt()
+	virtual public void lookAt()
+	{
+		//var targetAngle = Mathf.Atan2 (moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
+		//transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
+	}
+	#endregion
 	// Use this for initialization
 	#region void Start ()
 	void Start () 
