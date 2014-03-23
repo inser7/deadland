@@ -43,7 +43,7 @@ public class WeaponController : MonoBehaviour {
 		if (!fixedAngle)
 						lookDirection = Camera.main.ScreenToWorldPoint (Input.mousePosition) - weaponTransform.position;
 				else {
-			Vector2 localTracktorLookAt = tracktor.GetComponent<HeroControllerScript> ().forwardDirection;
+			Vector2 localTracktorLookAt = tracktor.GetComponent<CBaseHero> ().forwardDirection;
 						trackorForward = new Vector3 (localTracktorLookAt.x, localTracktorLookAt.y, 0.0f);
 						lookDirection = trackorForward;
 				}

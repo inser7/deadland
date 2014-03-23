@@ -78,7 +78,6 @@ public class HeroControllerScript : MonoBehaviour
 	{
 		Vector2 moveDirection 	= new Vector2 ( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
 		//если двигаемся вперед
-
 		if (Mathf.Abs (moveDirection.y) > 0.0f) 
 		{ 
 			//вкл анимацию гусениц

@@ -12,23 +12,28 @@ public class CBaseCharacter : MonoBehaviour {
 	//основное оружие
 	//publc CBaseWeapon mainWeapon;
 
+	//направление движения
+	public Vector2 forwardDirection = new Vector2 (0.0f, 1.0f);
 
 	//скорость движения
 	public float moveSpeed;
 	//направление движения
-	private Vector3 moveDirection;
+	protected Vector3 moveDirection;
 
 	//кэшируем Transform
 	protected Transform thisTransform;
 	//ссылка на компонент анимаций
 	protected Animator thisAnimator;
+	//ссылка на ригидбоди
+	protected Rigidbody2D thisRigidbody;
 	#endregion
 
 	//двигаемся в направлении движения со скоростью движения
 	#region void moveTo()
 	virtual public void moveTo()
 	{
-		thisTransform.position = Vector3.Lerp (thisTransform.position, thisTransform.position + moveDirection * moveSpeed, Time.deltaTime);
+		//thisTransform.position = Vector3.Lerp (thisTransform.position, thisTransform.position + moveDirection * moveSpeed, Time.deltaTime);
+		thisRigidbody.velocity = moveDirection * moveSpeed;
 	}
 	#endregion
 
@@ -38,6 +43,7 @@ public class CBaseCharacter : MonoBehaviour {
 	{
 		//var targetAngle = Mathf.Atan2 (moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
 		//transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
+		//thisTransform.rotation = 
 	}
 	#endregion
 	// Use this for initialization
@@ -45,7 +51,8 @@ public class CBaseCharacter : MonoBehaviour {
 	void Start () 
 	{
 		thisTransform = transform;
-		thisAnimator = GetComponent<Animator> ();
+		thisAnimator  = GetComponent<Animator> ();
+		thisRigidbody = GetComponent<Rigidbody2D> ();
 		/*GameObject obj = GameObject.FindGameObjectWithTag ("Player");
 		moveDirection = obj.transform.position;
 		moveDirection.Normalize ();*/

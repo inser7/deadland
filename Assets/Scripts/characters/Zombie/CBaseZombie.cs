@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CBaseZombie : CBaseCharacter {
+public class CBaseZombie : CBaseCharacter 
+{
 
 	#region fields
 	//цена за зомби
