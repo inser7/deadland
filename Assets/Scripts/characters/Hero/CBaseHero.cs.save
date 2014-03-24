@@ -35,7 +35,8 @@ public class CBaseHero : CBaseCharacter
 	void Start ()
 	{
 		motorSound = GetComponent<AudioSource> ();
-        taranDamage   = damage;
+
+
 		thisRigidbody = GetComponent<Rigidbody2D> ();
 		thisTransform = thisRigidbody.transform;
 		thisAnimator  = GetComponent<Animator> ();
@@ -55,7 +56,7 @@ public class CBaseHero : CBaseCharacter
 			nitro = ( isNitroOn && ( currenNitroStock > 0 ) )? Mathf.Lerp(nitro, nitroSpeed, Time.deltaTime * 2) : 0;
 			//добавляем "Газу" при звучании
 			motorSound.pitch = 0.3f + 0.2f*( Mathf.Abs (moveDirection.y)  + nitro * 0.1f );// +  * 0.2f * moveDirection.y ;
-			damage = (int) Mathf.Abs( moveDirection.y * taranDamage );
+			damage = moveDirecto
 			//двигаемся вперед
 			rigidbody2D.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 			if( isNitroOn && currenNitroStock > 0.0f )
@@ -128,8 +129,6 @@ public class CBaseHero : CBaseCharacter
 		lookAt ();//поворот
 		//если двигаемся, то оставляем след от гусениц
 		makeTrail ();
-
-        //Debug.Log( "damage " + damage);
 	}
 	#endregion
 

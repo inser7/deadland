@@ -92,15 +92,12 @@ public class ZombieWalk : MonoBehaviour
             go.transform.position = Vector3.Lerp( PlcurrentPosition, Pltarget, Time.deltaTime );
         }
           */
-						#endregion
-                     //   var angle = 0;
+                						#endregion
+
 						moveDirection = go.transform.position - currentPosition;
-                       // moveDirection.x = moveDirection.x * Mathf.Sin(angle);
-                       // moveDirection.y = moveDirection.y * Mathf.Cos(angle);
+
 						moveDirection.z = 0;
 						moveDirection.Normalize ();
-
-                      //  angle += 10;
 
                         var playerTarget = moveDirection * MobCurrentSpeed + currentPosition;
 //        Debug.Log(playerTarget);

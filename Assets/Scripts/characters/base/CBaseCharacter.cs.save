@@ -6,7 +6,7 @@ public class CBaseCharacter : MonoBehaviour
 
 	#region fields
 
-    /*protected*/public int damage = 0;
+    protected uint damage = 0;
 
 	//здоровье персонажа
 	//protected CBaseHP hitPoints;

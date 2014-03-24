@@ -66,43 +66,14 @@ public class CBaseZombie : CBaseCharacter
 	private void FixedUpdate()
 	{
 
-	   // if(!isLive() ) return;
+	    if(!isLive() ) return;
 		Vector3 direction = target.transform.position - thisTransform.position;
+		forwardDirection = new Vector2 (direction.x, direction.y);
+		forwardDirection.Normalize ();
 
-
-        //если  мы еще живы
-		if( isLive() )
-		{
-			//Debug.Log("wearelivingdead )");
-            forwardDirection = new Vector2 (direction.x, direction.y);
-            forwardDirection.Normalize ();
-
-            moveTo ();
-            lookAt ();
-		}
-		else//если померли
-		{
-		    if(!isDead)
-            {
-                isDead = true;
-                thisAnimator.SetTrigger("dead");
-                Destroy(gameObject,5); //моб изчезаем через 5 минут
-
-                //Debug.Log("zombie is dead");
-                globalVars.credits += price;
-//    			foreach(Collider2D c in cols)
-//    			{
-//    				c.isTrigger = true;
-//    			}
-
-
-                //Debug.Log("zombie is dead2");
-                Destroy ( thisRigidbody ); //
-
-                Destroy ( GetComponent<BoxCollider2D>() ); //
-            }
-
-		}
+		moveTo ();
+		lookAt ();
+        //Debug.Log( "hitPoints " + hitPoints);
 	}
 	#endregion
 
@@ -130,21 +101,44 @@ public class CBaseZombie : CBaseCharacter
 	void OnCollisionEnter2D  (Collision2D  myCollision)
 	{
 
-        //Debug.Log("Zzzzombie taran!!! ");
+        Debug.Log("Zzzzombie taran!!! ");
 		if ( ( myCollision.gameObject.tag == "Player") && ( isLive() ))
 		{
 			CBaseHero collisionBehaviour = myCollision.gameObject.GetComponent<CBaseHero> ();
-			if(collisionBehaviour.damage != 0 )
 			setDamage( collisionBehaviour.damage );
-			//Debug.Log("Zzzzombie taran!!! hero.damage = " + collisionBehaviour.damage);
+			Debug.Log("Zzzzombie taran!!! hero.damage = " + collisionBehaviour.damage);
 		}
 	}
 	#endregion
 
 	#region void Update()
-   /* private void Update()
+    private void Update()
 	{
+		//если  мы еще живы
+		if( isLive() )
+		{
+			Debug.Log("wearelivingdead )");
+		}
+		else//если померли
+		{
+		    if(!isDead)
+            thisAnimator.SetTrigger("dead");
+			Destroy(gameObject,5); //моб изчезаем через 5 минут
 
-	}*/
+			Debug.Log("zombie is dead");
+			globalVars.credits += price;
+//			foreach(Collider2D c in cols)
+//			{
+//				c.isTrigger = true;
+//			}
+
+
+			Debug.Log("zombie is dead2");
+			Destroy ( thisRigidbody ); //
+
+			Destroy ( GetComponent<BoxCollider2D>() ); //
+
+		}
+	}
 	#endregion
 }
