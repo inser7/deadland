@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CBaseCharacter : MonoBehaviour {
+public class CBaseCharacter : MonoBehaviour 
+{
 
 	#region fields
 	//здоровье персонажа
-	protected CBaseHP hitPoints;
-	
+	//protected CBaseHP hitPoints;
+	protected int hitPoints;
 	//щит персонажа если есть
 	//protected CBaseHP shield;
 	//основное оружие
@@ -58,16 +59,32 @@ public class CBaseCharacter : MonoBehaviour {
 		moveDirection.Normalize ();*/
 	}
 	#endregion
-	
-	// Update is called once per frame
-	#region void Update ()
-	void Update () 
+
+	#region void setHitPoints () 
+	public void setHitPoints ( int newValue) 
 	{
-		//тестирую просто мувТу
-		moveDirection =  GameObject.FindGameObjectWithTag ("Player").transform.position - thisTransform.position;
-		moveDirection.z = 0.0f;
-		moveDirection.Normalize ();
-		moveTo ();
+		hitPoints = newValue;
+	}
+	#endregion
+
+	#region void setDamage (int damage) 
+	public void setDamage (int damage) 
+	{
+		incHitPoints (-damage);
+	}
+	#endregion
+
+	#region void incHitPoints (int incValue) 
+	public void incHitPoints (int incValue) 
+	{
+		hitPoints += incValue;
+	}
+	#endregion
+
+	#region bool isLive () 
+	public bool isLive () 
+	{
+		return hitPoints > 0;
 	}
 	#endregion
 }

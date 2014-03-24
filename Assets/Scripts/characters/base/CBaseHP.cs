@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CBaseHP : MonoBehaviour 
+public class CBaseHP// : MonoBehaviour 
 {
-
+	/*
+		нужен ли этот класс?
+	 * */
 	#region fields
 	//количество здоровья
 	protected int Value;
@@ -35,6 +37,7 @@ public class CBaseHP : MonoBehaviour
 	#region 
 	
 	#endregion
+	/*
 	// Use this for initialization
 	
 	#region void Start ()
@@ -52,4 +55,5 @@ public class CBaseHP : MonoBehaviour
 	
 	}
 	#endregion
+*/
 }
