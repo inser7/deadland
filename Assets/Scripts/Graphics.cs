@@ -9,8 +9,8 @@ public class Graphics : MonoBehaviour {
 
 
     void Awake(){
-        playerStats = new Rect(10.0f, 10.0f, 150.0f, 100.0f);
-        playerStatsPlayerMoney = new Rect(playerStats.x + 12.5f, playerStats.y + 30.0f, 125.0f, 25.0f);
+    //    playerStats = new Rect(10.0f, 10.0f, 150.0f, 100.0f);
+      //  playerStatsPlayerMoney = new Rect(playerStats.x + 12.5f, playerStats.y + 30.0f, 125.0f, 25.0f);
 
     }
 	// Use this for initialization
@@ -24,8 +24,8 @@ public class Graphics : MonoBehaviour {
 	}
 
     private void OnGUI(){
-        GUI.Box(playerStats, "Player Stats");
-        GUI.Label(playerStatsPlayerMoney, "Money: " + globalVars.credits + "$");
+      //  GUI.Box(playerStats, "Player Stats");
+    //    GUI.Label(playerStatsPlayerMoney, "Money: " + globalVars.credits + "$");
 
     }
 }

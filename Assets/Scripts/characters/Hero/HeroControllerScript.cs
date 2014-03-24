@@ -5,8 +5,6 @@ public class HeroControllerScript : MonoBehaviour
 {
 	#region Fields
 
-	//Слайдер нитро
-	public UISlider NitroSlider;
 	//след от гусениц
 	public GameObject trail;
 	//урон при бортовании за счет пули
@@ -132,7 +130,7 @@ public class HeroControllerScript : MonoBehaviour
 			Destroy(cloneTrail, 2.0f);
 		}
 
-		NitroSlider.sliderValue =currenNitroStock/nitroStock; // значение слайдера уменьшаем
+		//NitroSlider.sliderValue =currenNitroStock/nitroStock; // значение слайдера уменьшаем
 		//
 	}
 	#endregion

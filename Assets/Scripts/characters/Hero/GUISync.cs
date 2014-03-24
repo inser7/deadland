@@ -5,6 +5,7 @@ public class GUISync : MonoBehaviour {
 	#region fields
 	//Слайдер нитро
 	public UISlider NitroSlider;
+    public UILabel MoneyLabel; 
 
 	private CBaseHero thisHero;
 	#endregion
@@ -21,7 +22,8 @@ public class GUISync : MonoBehaviour {
 	void Update () 
 	{
 		// значение слайдера уменьшаем
-		NitroSlider.sliderValue =  thisHero.currenNitroStock/thisHero.nitroStock; 
+		NitroSlider.sliderValue =  thisHero.currenNitroStock/thisHero.nitroStock;
+        MoneyLabel.text = globalVars.credits.ToString() + " $";
 	}
 	#endregion
 }

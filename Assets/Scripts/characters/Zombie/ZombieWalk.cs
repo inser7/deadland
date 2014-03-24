@@ -112,10 +112,10 @@ public class ZombieWalk : MonoBehaviour
 
 			// Find all of the colliders on the gameobject and set them all to be triggers.
 
-			foreach(Collider2D c in cols)
-			{
-				c.isTrigger = true;
-			}
+            //foreach(Collider2D c in cols)
+            //{
+            //    c.isTrigger = true;
+            //}
 
 
 			Destroy (myTransform.rigidbody2D);
