@@ -27,9 +27,10 @@ public class Control : MonoBehaviour {
 			LoadSlider.sliderValue =  (int)(	*100f);
 			//yield return null;
 		} */
+		StartCoroutine(DisplayLoadingScreen("MainScene.unity.REMOTE"));
 	}
 
-
+	/*
 	void OnGUI(){
 		if(Menu){
 			if(Input.GetKeyDown ("space")){
@@ -57,14 +58,9 @@ public class Control : MonoBehaviour {
 		
 		
 	}
+*/
+			
 
-	//А тут я пытался из примера с запуском подпрограммы
-	/*void Update()
-	{
-		if (Input.GetKeyDown ("space")) {
-			StartCoroutine(DisplayLoadingScreen("MainScene.unity.REMOTE"));
-		}
-	}
 
 	IEnumerator DisplayLoadingScreen(string Level)
 	{	
@@ -72,15 +68,16 @@ public class Control : MonoBehaviour {
 		AsyncOperation async = Application.LoadLevelAdditiveAsync (Level);
 		while (!async.isDone) {
 			//Round_load = (int)(async.progress*100);
-			LoadSlider.sliderValue = (async.progress);
+			LoadSlider.sliderValue = (async.progress*100f);
 			yield return null;
 		}
+		yield return async;
 	}
-*/
+
 
 	// Update is called once per frame
 	void Garage () {
 		//Asop.allowSceneActivation = true;
-        //Application.LoadLevel("garage3D");
+        Application.LoadLevel("garage3D");
 	}
 }
