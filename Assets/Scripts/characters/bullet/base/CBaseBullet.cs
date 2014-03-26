@@ -48,7 +48,7 @@ public class CBaseBullet : CBaseCharacter
 	{
 		if (myCollision.gameObject.tag == "zombie")
 		{
-			Debug.Log("bullet damage!!!" + damage);
+			//Debug.Log("bullet damage!!!" + damage);
 			CBaseZombie collisionBehaviour = myCollision.gameObject.GetComponent<CBaseZombie> ();
 			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
 			if (collisionBehaviour != null && collisionBehaviour.isLive() )

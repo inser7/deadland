@@ -1,0 +1,294 @@
+<Project>
+  <Name>Deadland</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Base Classes</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>CBaseCharacter</Name>
+        <Access>Public</Access>
+        <Location left="26" top="234" />
+        <Size width="242" height="247" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int hitPoints { get; set; }</Member>
+        <Member type="Property">public int shield { get; set; }</Member>
+        <Member type="Property">public CBaseWeapon mainWeapon { get; set; }</Member>
+        <Member type="Property">public float moveSpeed { get; set; }</Member>
+        <Member type="Property">public Vector3 moveDirection { get; set; }</Member>
+        <Member type="Method">public void moveTo()</Member>
+        <Member type="Event">public event int damage</Member>
+        <Member type="Method">public bool isLive()</Member>
+        <Member type="Method">public void incHP(int incValue)</Member>
+        <Member type="Method">public void setHP(int newValue)</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CBaseWeapon</Name>
+        <Access>Public</Access>
+        <Location left="26" top="470" />
+        <Size width="242" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public CBaseBullet bulletType { get; set; }</Member>
+        <Member type="Property">public bool fixedAngle { get; set; }</Member>
+        <Member type="Property">public bool isAlternative { get; set; }</Member>
+        <Member type="Property">public GameObject gunShotSound { get; set; }</Member>
+        <Member type="Property">public float fireRate { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CBaseGameLevel</Name>
+        <Access>Public</Access>
+        <Location left="966" top="430" />
+        <Size width="218" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public uint id { get; set; }</Member>
+        <Member type="Property">public uint subId { get; set; }</Member>
+        <Member type="Method">public bool Load(string name)</Member>
+        <Member type="Property">public bool isMiniMapVisible { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CBaseLevelGoal</Name>
+        <Access>Public</Access>
+        <Location left="966" top="187" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Method">public bool isComplete()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>по сути объект-функтор, выполняет 1метод. не важно что внутри, какой алгоритм и цель, главное результат. т.е. если возвращает true, значит цель выполнена и уровень завершен
+</Text>
+        <Location left="966" top="25" />
+        <Size width="160" height="142" />
+      </Entity>
+      <Entity type="Class">
+        <Name>CBaseBonus</Name>
+        <Access>Public</Access>
+        <Location left="736" top="430" />
+        <Size width="201" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public enBonusTypes type_ { get; set; }</Member>
+        <Member type="Property">public int Value { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>enBonusTypes</Name>
+        <Access>Public</Access>
+        <Location left="736" top="187" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>BT_HEALTH</Value>
+        <Value>BT_SHIELD</Value>
+        <Value>BT_WEAPON</Value>
+        <Value>BT_NITRO</Value>
+        <Value>BT_AMMO</Value>
+      </Entity>
+    </Entities>
+    <Relationships />
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Hero</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>CBaseHero</Name>
+        <Access>Public</Access>
+        <Location left="153" top="101" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public CBaseWeapon mainWeapon { get; set; }</Member>
+        <Member type="Property">public CBaseWeapon altWeapon { get; set; }</Member>
+        <Member type="Property">public float nitroSpeed { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>Наследник от CBaseCharacter
+</Text>
+        <Location left="153" top="20" />
+        <Size width="160" height="75" />
+      </Entity>
+    </Entities>
+    <Relationships />
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Enemy</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Comment">
+        <Text>Наследники
+ от CBaseCharacter
+</Text>
+        <Location left="108" top="45" />
+        <Size width="160" height="75" />
+      </Entity>
+      <Entity type="Class">
+        <Name>CZombieLevel1</Name>
+        <Access>Public</Access>
+        <Location left="304" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CBaseZombie</Name>
+        <Access>Public</Access>
+        <Location left="108" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public uint price { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CZombieLevel2</Name>
+        <Access>Public</Access>
+        <Location left="481" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CZombieLevel3</Name>
+        <Access>Public</Access>
+        <Location left="660" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CZombieLevel4</Name>
+        <Access>Public</Access>
+        <Location left="850" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CZombieLevel5</Name>
+        <Access>Public</Access>
+        <Location left="1040" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>Наследники
+ от CBaseZombie
+</Text>
+        <Location left="304" top="45" />
+        <Size width="160" height="75" />
+      </Entity>
+    </Entities>
+    <Relationships />
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Weapon</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>CMachineGun</Name>
+        <Access>Public</Access>
+        <Location left="191" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>Наследники
+ от CBaseWeapon
+
+</Text>
+        <Location left="36" top="29" />
+        <Size width="160" height="75" />
+      </Entity>
+      <Entity type="Class">
+        <Name>CRocketGun</Name>
+        <Access>Public</Access>
+        <Location left="402" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CPlasmaGun</Name>
+        <Access>Public</Access>
+        <Location left="615" top="151" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships />
+  </ProjectItem>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Bullet</Name>
+    <Language>CSharp</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>CBullet</Name>
+        <Access>Public</Access>
+        <Location left="532" top="150" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>Наследники
+ от CBaseBullet
+</Text>
+        <Location left="532" top="34" />
+        <Size width="160" height="75" />
+      </Entity>
+      <Entity type="Class">
+        <Name>CRocket</Name>
+        <Access>Public</Access>
+        <Location left="743" top="150" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CPlasma</Name>
+        <Access>Public</Access>
+        <Location left="949" top="150" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CFire</Name>
+        <Access>Public</Access>
+        <Location left="1145" top="150" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CElectro</Name>
+        <Access>Public</Access>
+        <Location left="1342" top="150" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CBaseBullet</Name>
+        <Access>Public</Access>
+        <Location left="266" top="150" />
+        <Size width="220" height="216" />
+        <Collapsed>False</Collapsed>
+        <Member type="Property">public int damageRadius { get; set; }</Member>
+        <Member type="Property">public float timeToLive { get; set; }</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Comment">
+        <Text>Наследники
+ от CBaseCharacter
+</Text>
+        <Location left="299" top="34" />
+        <Size width="160" height="75" />
+      </Entity>
+    </Entities>
+    <Relationships />
+  </ProjectItem>
+</Project>

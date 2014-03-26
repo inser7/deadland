@@ -48,13 +48,13 @@ public class CBaseBullet : CBaseCharacter
 	{
 		if (myCollision.gameObject.tag == "zombie")
 		{
-			Debug.Log("Zzzzombie!!!");
+			//Debug.Log("bullet damage!!!" + damage);
 			CBaseZombie collisionBehaviour = myCollision.gameObject.GetComponent<CBaseZombie> ();
 			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
-			if (collisionBehaviour)
+			if (collisionBehaviour != null && collisionBehaviour.isLive() )
 			{//Если MonsterBehaviour eсть
 				collisionBehaviour.setDamage ( damage );
-				collisionBehaviour. forwardDirection = forwardDirection;
+				collisionBehaviour.shootForwardDirection = forwardDirection;
 			}
 		}
 		//после попадания в любой обьект, патрон исчезает
