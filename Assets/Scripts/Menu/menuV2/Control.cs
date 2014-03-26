@@ -65,7 +65,7 @@ public class Control : MonoBehaviour {
 	IEnumerator DisplayLoadingScreen(string Level)
 	{	
 		//LoadSlider.sliderValue = (Round_load);
-		AsyncOperation async = Application.LoadLevelAdditiveAsync (Level);
+		AsyncOperation async = Application.LoadLevelAsync(Level);
 		while (!async.isDone) {
 			//Round_load = (int)(async.progress*100);
 			LoadSlider.sliderValue = (async.progress*100f);
