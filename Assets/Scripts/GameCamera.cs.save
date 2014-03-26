@@ -53,7 +53,7 @@ public class GameCamera : MonoBehaviour
             if(isOutOfX) newCamPos = new Vector3( newCamPos.x + xD * signX,
                                                  newCamPos.y ,
                                                  newCamPos.z);
-        if( ( topLeftCorner.y >= (newCamPos.y + yD * signY) ) && ( bottomRightCorner.y <= (newCamPos.y + yD * signY) ) )
+        if( ( topLeftCorner.y >= (newCamPos.y + yD * signY) ) && ( bottomRightCorner.y >= (newCamPos.y + yD * signY) ) )
             if(isOutOfY) newCamPos = new Vector3( newCamPos.x ,
                                                  newCamPos.y + yD * signY,
                                                  newCamPos.z);
