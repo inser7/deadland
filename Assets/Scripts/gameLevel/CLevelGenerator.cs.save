@@ -1,0 +1,22 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class CLevelGenerator : MonoBehaviour
+{
+
+    #region fields
+    public GameObject tile;
+    public int mapWidth = 4;
+    public int mapWidth = 4;
+    #endregion
+
+	// Use this for initialization
+	void Start () {
+
+	}
+
+	// Update is called once per frame
+	void Update () {
+
+	}
+}
