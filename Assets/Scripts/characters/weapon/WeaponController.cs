@@ -58,9 +58,10 @@ public class WeaponController : MonoBehaviour {
 			//запускаем снаряд 
 			Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
 			//запускаем звук выстрела
-			var cloneSound  =  Instantiate( gunshot, weaponTransform.position, weaponTransform.rotation);
+			//var cloneSound  =  
+				Instantiate( gunshot, weaponTransform.position, weaponTransform.rotation);
 			//уничтожаем объект со звуком
-			Destroy(cloneSound, 0.7f);
+			//Destroy(cloneSound, 0.7f);
 			//Debug.Log("shooting");
 		}
 	}

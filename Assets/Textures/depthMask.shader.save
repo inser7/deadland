@@ -1,0 +1,10 @@
+﻿Shader "Masked/depthMask" 
+{
+
+
+	SubShader 
+	{
+                s
+	}
+	FallBack "Diffuse"
+}

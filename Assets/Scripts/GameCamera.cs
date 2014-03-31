@@ -38,7 +38,7 @@ public class GameCamera : MonoBehaviour
     {
         if (!target)
 			return;
-			Debug.Log( cameraTransform.position );
+			//Debug.Log( cameraTransform.position );
 		//
 		float xD = distanceXToTarget - Mathf.Abs( target.position.x - cameraTransform.position.x );
 		float yD = distanceYToTarget - Mathf.Abs (target.position.y - cameraTransform.position.y);

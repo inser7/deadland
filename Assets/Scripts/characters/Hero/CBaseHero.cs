@@ -41,6 +41,8 @@ public class CBaseHero : CBaseCharacter
 		thisAnimator  = GetComponent<Animator> ();
 		damage = taranDamage;
 	}
+	#endregion
+
 	//двигаемся в направлении движения со скоростью движения
 	float nitro = 0.0f;
 	#region void moveTo()
@@ -102,7 +104,6 @@ public class CBaseHero : CBaseCharacter
 
 	// Use this for initialization
 
-	#endregion
 
 	#region void makeTrail()
 	private void makeTrail()

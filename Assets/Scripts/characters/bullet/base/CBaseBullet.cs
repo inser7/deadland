@@ -22,7 +22,7 @@ public class CBaseBullet : CBaseCharacter
 
 		thisRigidbody = GetComponent<Rigidbody2D> ();
 		thisTransform = thisRigidbody.transform;
-		thisAnimator  = GetComponent<Animator> ();
+		//thisAnimator  = GetComponent<Animator> ();
 
 		Vector3 startPos = thisTransform.position;
 
