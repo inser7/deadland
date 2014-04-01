@@ -36,12 +36,17 @@ public class Zombie : CBaseZombie {
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
+
+		Vector3 direction = target.transform.position - thisTransform.position;
+		forwardDirection.Normalize ();
+
 		vLastPos = transform.position;
 		
 		fTime += Time.deltaTime * CurveSpeed;
 		
 		Vector3 vSin = new Vector3(Mathf.Sin(fTime), -Mathf.Sin(fTime), 0);
-		Vector3 vLin = new Vector3(MoveSpeed, MoveSpeed, 0);
+		//Vector3 vLin = new Vector3(MoveSpeed, MoveSpeed, 0);
+		Vector3 vLin = new Vector3 (direction.x, direction.y, 0);
 		
 		transform.position += (vSin + vLin) * Time.deltaTime;
 
