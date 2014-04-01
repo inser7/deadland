@@ -18,7 +18,7 @@ public class CLevelGenerator : MonoBehaviour
 	void Start ()
     {
 		//tiles = new GameObject[1];
-		CreateTiles (mapWidth, mapHeight, 512 * mapWidth, 512 * mapHeight);
+		CreateTiles (mapWidth, mapHeight, 512 /* mapWidth*/, 512 /** mapHeight*/);
 
 	}
     #endregion
@@ -43,9 +43,10 @@ public class CLevelGenerator : MonoBehaviour
 		WWW www = new WWW(path);
 		//yield return www; 
 		//www.texture.
-		sprite = Sprite.Create (www.texture, new Rect(-w / 2.0f, 0, w, h),new Vector2(0, 0));
+		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), 512.0f);
 		//tile.transform.localScale = new Vector3 (5.0f, 5.0f, 1.0f );
-		tile.transform.localScale = new Vector3 (3.0f, 3.0f, 1.0f );
+		//tile.transform.localScale = new Vector3 (3.0f, 3.0f, 1.0f );
+		tile.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f );
 		SpriteRenderer sRenderer = tile.GetComponent<SpriteRenderer> ();
 
 		sRenderer.sprite = sprite;
@@ -80,6 +81,25 @@ public class CLevelGenerator : MonoBehaviour
 			}
 
 		//return tile;
+	}
+	#endregion
+
+	#region GameObject createObject ()
+	GameObject createObject (int w, int h, Vector3 pos, string path )
+	{
+		GameObject obj = new GameObject ();
+		obj.transform.position = pos;
+		obj.AddComponent<SpriteRenderer> ();
+		Sprite sprite = new Sprite ();
+		WWW www = new WWW(path);
+
+		sprite = Sprite.Create (www.texture, new Rect(-w / 2.0f, 0, w, h),new Vector2(0, 0));
+	
+		SpriteRenderer sRenderer = obj.GetComponent<SpriteRenderer> ();
+		
+		sRenderer.sprite = sprite;
+		
+		return obj;
 	}
 	#endregion
 }
