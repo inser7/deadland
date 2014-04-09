@@ -40,6 +40,7 @@ public class CBaseHero : CBaseCharacter
 		thisTransform = thisRigidbody.transform;
 		thisAnimator  = GetComponent<Animator> ();
 		damage = taranDamage;
+		currentHitPoints = hitPoints;
 	}
 	#endregion
 
@@ -57,7 +58,7 @@ public class CBaseHero : CBaseCharacter
 			nitro = ( isNitroOn && ( currenNitroStock > 0 ) )? Mathf.Lerp(nitro, nitroSpeed, Time.deltaTime * 2) : 0;
 			//добавляем "Газу" при звучании
 			motorSound.pitch = 0.3f + 0.2f*( Mathf.Abs (moveDirection.y)  + nitro * 0.1f );// +  * 0.2f * moveDirection.y ;
-			damage = (int) Mathf.Abs( moveDirection.y * taranDamage );
+
 			//двигаемся вперед
 			rigidbody2D.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 			if( isNitroOn && currenNitroStock > 0.0f )
@@ -65,6 +66,7 @@ public class CBaseHero : CBaseCharacter
 				currenNitroStock -= 0.1f;
 			}
 		}
+		damage = (int) Mathf.Abs( moveDirection.y * taranDamage );
 		//thisRigidbody.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 	}
 	#endregion

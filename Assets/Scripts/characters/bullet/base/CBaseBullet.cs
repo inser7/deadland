@@ -4,6 +4,7 @@ using System.Collections;
 public class CBaseBullet : CBaseCharacter
 {
 	#region Fields
+	public string targetTag = "zombie";
 	//public int Damage = 30;
 	public float damageRadius = 1;
 
@@ -46,10 +47,10 @@ public class CBaseBullet : CBaseCharacter
 	#region void OnCollisionEnter2D (Collision2D myCollision)
 	void OnCollisionEnter2D  (Collision2D  myCollision)
 	{
-		if (myCollision.gameObject.tag == "zombie")
+
+		if ( myCollision.gameObject.tag == targetTag )
 		{
-			//Debug.Log("bullet damage!!!" + damage);
-			CBaseZombie collisionBehaviour = myCollision.gameObject.GetComponent<CBaseZombie> ();
+			CBaseCharacter collisionBehaviour = myCollision.gameObject.GetComponent<CBaseCharacter> ();
 			//Патрону все равно какой именно наследник MonsterBehaviour мы получим.
 			if (collisionBehaviour != null && collisionBehaviour.isLive() )
 			{//Если MonsterBehaviour eсть

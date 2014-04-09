@@ -11,12 +11,15 @@ public class CBaseCharacter : MonoBehaviour
 	//здоровье персонажа
 	//protected CBaseHP hitPoints;
 	public int hitPoints;
+	public int currentHitPoints;
 	//щит персонажа если есть
 	public int shield;
 	//protected CBaseHP shield;
 	//основное оружие
 	//publc CBaseWeapon mainWeapon;
-
+	
+	//"направление" брызг
+	public Vector2 shootForwardDirection;
 	//направление движения
 	public Vector2 forwardDirection = new Vector2 (0.0f, 1.0f);
 
@@ -45,9 +48,10 @@ public class CBaseCharacter : MonoBehaviour
 	#region void lookAt()
 	virtual public void lookAt()
 	{
-		//var targetAngle = Mathf.Atan2 (moveDirection.y, moveDirection.x) * Mathf.Rad2Deg - 90;
-		//transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.Euler (0, 0, targetAngle), turnSpeed * Time.deltaTime);
-		//thisTransform.rotation =
+		var targetAngle = Mathf.Atan2 (forwardDirection.y, forwardDirection.x) * Mathf.Rad2Deg - 90;
+		
+		thisTransform.rotation = Quaternion.Slerp ( thisTransform.rotation, Quaternion.Euler (0, 0, targetAngle), 2 * Time.deltaTime);
+
 	}
 	#endregion
 	// Use this for initialization
@@ -57,6 +61,7 @@ public class CBaseCharacter : MonoBehaviour
 		thisRigidbody = GetComponent<Rigidbody2D> ();
 		thisTransform = thisRigidbody.transform;
 		thisAnimator  = GetComponent<Animator> ();
+		currentHitPoints = hitPoints;
 	}
 	#endregion
 
@@ -64,6 +69,7 @@ public class CBaseCharacter : MonoBehaviour
 	public void setHitPoints ( int newValue)
 	{
 		hitPoints = newValue;
+		currentHitPoints = newValue;
 	}
 	#endregion
 
@@ -77,14 +83,14 @@ public class CBaseCharacter : MonoBehaviour
 	#region void incHitPoints (int incValue)
 	public void incHitPoints (int incValue)
 	{
-		hitPoints += incValue;
+		currentHitPoints += incValue;
 	}
 	#endregion
 
 	#region bool isLive ()
 	public bool isLive ()
 	{
-		return hitPoints > 0;
+		return currentHitPoints > 0;
 	}
 	#endregion
 }

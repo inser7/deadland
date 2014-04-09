@@ -25,7 +25,7 @@ public class GUISync : MonoBehaviour {
 		// значение слайдера уменьшаем
 		NitroSlider.sliderValue =  thisHero.currenNitroStock/thisHero.nitroStock;
         MoneyLabel.text = globalVars.credits.ToString() + " $";
-		ShieldSlider.sliderValue = thisHero.shield;
+		ShieldSlider.sliderValue = thisHero.currentHitPoints / (float)thisHero.hitPoints;// thisHero.shield;
 	}
 	#endregion
 }

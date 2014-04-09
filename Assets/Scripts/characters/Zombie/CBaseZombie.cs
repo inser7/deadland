@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class CBaseZombie : CBaseCharacter
@@ -15,11 +15,11 @@ public class CBaseZombie : CBaseCharacter
 	public GameObject[] blood;
 	 //префаб с анимацией выстрела
 	public GameObject shoot;
-	//"направление" брызг
-	public Vector2 shootForwardDirection;
+	//префаб с "последним вздохом"
+	public GameObject deathSound;// \м/
 
-	protected Collider2D[] cols;
 	protected bool  isDead = false;
+	protected CBaseWeapon weapon;
 	#endregion
 
 	// Use this for initialization
@@ -40,6 +40,9 @@ public class CBaseZombie : CBaseCharacter
 		spriteClr.g = Random.Range (0, 10) / 10.0f;
 		spriteClr.b = Random.Range (0, 10) / 10.0f;
 		GetComponent<SpriteRenderer> ().color = spriteClr;
+
+		weapon = gameObject.GetComponentInChildren<CBaseWeapon> ();
+		currentHitPoints = hitPoints;
 	}
 	#endregion
 
@@ -59,47 +62,44 @@ public class CBaseZombie : CBaseCharacter
 		thisTransform.rotation = Quaternion.Slerp ( thisTransform.rotation, Quaternion.Euler (0, 0, targetAngle), 2 * Time.deltaTime);
 
 	}
-	#endregion
+
+#endregion
 
 
 	#region void FixedUpdate()
 	private void FixedUpdate()
 	{
-
 	   // if(!isLive() ) return;
 		Vector3 direction = target.transform.position - thisTransform.position;
-
 
         //если  мы еще живы
 		if( isLive() )
 		{
-			//Debug.Log("wearelivingdead )");
             forwardDirection = new Vector2 (direction.x, direction.y);
             forwardDirection.Normalize ();
 
             moveTo ();
             lookAt ();
+			//if( weapon ) weapon.Attack();
 		}
 		else//если померли
 		{
 		    if(!isDead)
-            {
+			{
+				deathSound.GetComponent<AudioSource>().volume = Random.Range( 0.5f, 1.0f);
+				deathSound.GetComponent<AudioSource>().pitch = Random.Range( 0.5f, 1.2f);
+				var deathSnd = Instantiate( deathSound, thisTransform.position, thisTransform.rotation );
+				Destroy( deathSnd, 3 );
+
                 isDead = true;
                 thisAnimator.SetTrigger("dead");
                 Destroy(gameObject,5); //моб изчезаем через 5 минут
 
-                //Debug.Log("zombie is dead");
                 globalVars.credits += price;
-//    			foreach(Collider2D c in cols)
-//    			{
-//    				c.isTrigger = true;
-//    			}
 
-
-                //Debug.Log("zombie is dead2");
                 Destroy ( thisRigidbody ); //
 
-                Destroy ( GetComponent<BoxCollider2D>() ); //
+                Destroy ( GetComponent<BoxCollider2D>() ); 
             }
 
 		}
@@ -126,17 +126,30 @@ public class CBaseZombie : CBaseCharacter
 	}
 	#endregion
 
-    #region void OnCollisionEnter2D (Collision2D myCollision)
-	void OnCollisionEnter2D  (Collision2D  myCollision)
+	#region void OnCollisionEnter2D (Collision2D myCollision)
+	/*void OnCollisionEnter2D(Collision2D  myCollision)
 	{
-
-        //Debug.Log("Zzzzombie taran!!! ");
 		if ( ( myCollision.gameObject.tag == "Player") && ( isLive() ))
 		{
-			CBaseHero collisionBehaviour = myCollision.gameObject.GetComponent<CBaseHero> ();
-			if(collisionBehaviour.damage != 0 )
-			setDamage( collisionBehaviour.damage );
-			//Debug.Log("Zzzzombie taran!!! hero.damage = " + collisionBehaviour.damage);
+			int dmg = myCollision.gameObject.GetComponent<CBaseHero>().damage;
+			if( dmg > 0 ) setDamage( dmg );
+			if( weapon ) weapon.Attack();
+			
+			Debug.Log(" CBaseZombie OnCollisionEnter2D damage = " +myCollision.gameObject.GetComponent<CBaseHero>().damage);
+		}
+	}*/
+	#endregion
+
+    #region void OnCollisionEnter2D (Collision2D myCollision)
+	/*public */void OnCollisionStay2D(Collision2D  myCollision)
+	{
+		if ( ( myCollision.gameObject.tag == "Player") && ( isLive() ))
+		{
+			int dmg = myCollision.gameObject.GetComponent<CBaseHero>().damage;
+			if( dmg > 0 ) setDamage( dmg );
+			if( weapon ) weapon.Attack();
+			
+			//Debug.Log(" CBaseZombie OnCollisionEnter2D damage = " +myCollision.gameObject.GetComponent<CBaseHero>().damage);
 		}
 	}
 	#endregion

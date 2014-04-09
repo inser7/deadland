@@ -18,7 +18,7 @@ public class CLevelGenerator : MonoBehaviour
 	void Start ()
     {
 		//tiles = new GameObject[1];
-		CreateTiles (mapWidth, mapHeight, 512 /* mapWidth*/, 512 /** mapHeight*/);
+		CreateTiles (mapWidth, mapHeight, 512 * mapWidth, 512 * mapHeight);
 
 	}
     #endregion
@@ -43,7 +43,7 @@ public class CLevelGenerator : MonoBehaviour
 		WWW www = new WWW(path);
 		//yield return www; 
 		//www.texture.
-		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), 512.0f);
+		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), 128.0f);
 		//tile.transform.localScale = new Vector3 (5.0f, 5.0f, 1.0f );
 		//tile.transform.localScale = new Vector3 (3.0f, 3.0f, 1.0f );
 		tile.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f );
@@ -52,9 +52,9 @@ public class CLevelGenerator : MonoBehaviour
 		sRenderer.sprite = sprite;
 
 		//создаем тайлы
-		Vector2 startPos = new Vector2 (/*row */ w / ( 2.0f * tile.transform.localScale.x) ,
+		Vector2 startPos = new Vector2 (row * w / ( 2.0f * tile.transform.localScale.x) ,
 
-		                                /*col */ h / ( 2.0f * tile.transform.localScale.y) );
+		                                col * h / ( 2.0f * tile.transform.localScale.y) );
 		Debug.Log("startPos " + ( -w / 2.0f ) );
 		//Quaternion newRot = Quaternion.Euler (0.0f, 0.0f, 45.0f);
 		//for( int i = 0; i < row; i++ )
@@ -69,8 +69,8 @@ public class CLevelGenerator : MonoBehaviour
 			    //                         -startPos.y/* +  h + h * j*/, 
 			      //                       0.0f );
 
-				Vector3 newPos = new Vector3( 	-20.0f,
-				                             	-20.0f, 
+				Vector3 newPos = new Vector3( 	20-20.0f,
+				                             	20-20.0f, 
 			                             		 0.0f );
 			tile.transform.position = newPos;
 			//tile.transform.position = new Vector3( tile.transform.position.x,// - 30.0f,
@@ -93,7 +93,7 @@ public class CLevelGenerator : MonoBehaviour
 		Sprite sprite = new Sprite ();
 		WWW www = new WWW(path);
 
-		sprite = Sprite.Create (www.texture, new Rect(-w / 2.0f, 0, w, h),new Vector2(0, 0));
+		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), 128.0f);
 	
 		SpriteRenderer sRenderer = obj.GetComponent<SpriteRenderer> ();
 		
