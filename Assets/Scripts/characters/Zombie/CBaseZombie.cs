@@ -20,6 +20,7 @@ public class CBaseZombie : CBaseCharacter
 
 	protected bool  isDead = false;
 	protected CBaseWeapon weapon;
+	protected AudioSource zombieSound;
 	#endregion
 
 	// Use this for initialization
@@ -40,7 +41,9 @@ public class CBaseZombie : CBaseCharacter
 		spriteClr.g = Random.Range (0, 10) / 10.0f;
 		spriteClr.b = Random.Range (0, 10) / 10.0f;
 		GetComponent<SpriteRenderer> ().color = spriteClr;
-
+		zombieSound = gameObject.GetComponent<AudioSource>();
+		zombieSound.pitch = Random.Range (0.7f, 1.3f);
+		zombieSound.volume = Random.Range (0.7f, 1.0f);
 		weapon = gameObject.GetComponentInChildren<CBaseWeapon> ();
 		currentHitPoints = hitPoints;
 	}
@@ -80,12 +83,15 @@ public class CBaseZombie : CBaseCharacter
 
             moveTo ();
             lookAt ();
+
+			zombieSound.pitch = Random.Range( 0.7f, 1.0f);
 			//if( weapon ) weapon.Attack();
 		}
 		else//если померли
 		{
 		    if(!isDead)
 			{
+				zombieSound.Stop();
 				deathSound.GetComponent<AudioSource>().volume = Random.Range( 0.5f, 1.0f);
 				deathSound.GetComponent<AudioSource>().pitch = Random.Range( 0.5f, 1.2f);
 				var deathSnd = Instantiate( deathSound, thisTransform.position, thisTransform.rotation );
