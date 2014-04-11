@@ -1,1 +1,38 @@
-TestSave level_1_demo.txt 0
+textures
+1
+file://c:\DeveloperStudio\UnityProjects\Deathland\deadland\Assets\Sprites\ground\sand.png
+^_^  >___<  =) 8===Э  ( . )( . )  (__.__)
+objects
+16
+lalalla
+(-20.0, -20.0, 0.0)
+lalalla
+(-20.0, -9.0, 0.0)
+lalalla
+(-20.0, 2.0, 0.0)
+lalalla
+(-20.0, 13.0, 0.0)
+lalalla
+(-9.0, -20.0, 0.0)
+lalalla
+(-9.0, -9.0, 0.0)
+lalalla
+(-9.0, 2.0, 0.0)
+lalalla
+(-9.0, 13.0, 0.0)
+lalalla
+(2.0, -20.0, 0.0)
+lalalla
+(2.0, -9.0, 0.0)
+lalalla
+(2.0, 2.0, 0.0)
+lalalla
+(2.0, 13.0, 0.0)
+lalalla
+(13.0, -20.0, 0.0)
+lalalla
+(13.0, -9.0, 0.0)
+lalalla
+(13.0, 2.0, 0.0)
+lalalla
+(13.0, 13.0, 0.0)

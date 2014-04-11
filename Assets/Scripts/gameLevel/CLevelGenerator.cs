@@ -20,6 +20,10 @@ public class CLevelGenerator : MonoBehaviour
 	public string levelName;
 	//массив объектов уровня
 	protected GameObject[]	objects;
+	protected string[]		texturesPaths;		//кол-во НЕ ОБЯЗАТЕЛЬНО(вообще навряд ли) равно objects.length
+	protected int[]			texturesIndicies; 	//кол-во равно objects.length, хранятся индесы текстур для объектов
+	//
+	protected int currentObjIndex = 0;
     #endregion
 
 	enum ColliderType
@@ -36,8 +40,8 @@ public class CLevelGenerator : MonoBehaviour
 			levelName = "levelName.txt";
 		if (pathToSave == "")
 			pathToSave =/* "level/" + */levelName;
-		objects = new GameObject[1];
-		CreateTiles (mapWidth, mapHeight, 512 /* mapWidth*/, 512 /* mapHeight*/);
+		objects = new GameObject[mapWidth * mapHeight];
+		CreateTiles (mapWidth, mapHeight, 512, 512);
 		//Application.CaptureScreenshot ("sss.png");
 
 	}
@@ -55,6 +59,10 @@ public class CLevelGenerator : MonoBehaviour
 	void CreateTiles (int row, int col, int w, int h )
 	{
 		string path = "file://c:\\DeveloperStudio\\UnityProjects\\Deathland\\deadland\\Assets\\Sprites\\ground\\sand.png";
+
+		addTexturePath (path);
+		addTexturePath (path);
+		addTexturePath (path);
 		Vector2 startPos = new Vector2 (- w * row / 2 / pixInUnit, - h * col / 2 / pixInUnit);
 		for(int i = 0; i < row; i++ )
 			for( int j = 0; j < col; j++ )
@@ -64,8 +72,7 @@ public class CLevelGenerator : MonoBehaviour
 			       			                    0);
 				//Vector3 pos = new Vector3 ( 0, 0, 0);
 				GameObject tile = createSprite (w, h, pos, path);
-				objects[0] = tile;
-				Instantiate( tile );
+				addObject(tile);
 			}
 	/*	WWW www = new WWW(path);
 		//yield return www; 
@@ -80,13 +87,16 @@ public class CLevelGenerator : MonoBehaviour
 		GameObject obj = new GameObject ();
 		//obj.layer 	= "ground";
 		//obj.tag 	= "ground";
+		obj.name = "lalalla";
 		obj.transform.position = pos;
 		obj.AddComponent<SpriteRenderer> ();
 		Sprite sprite = new Sprite ();
 		WWW www = new WWW(path);
 
-		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), pixInUnit);
-	
+		Debug.Log ("www.url" + www.url);
+		WWW www2 = new WWW(www.url);
+		sprite = Sprite.Create (www2.texture, new Rect(0, 0, w, h),new Vector2(0, 0), pixInUnit);
+
 		SpriteRenderer sRenderer = obj.GetComponent<SpriteRenderer> ();
 		
 		sRenderer.sprite = sprite;
@@ -123,9 +133,20 @@ public class CLevelGenerator : MonoBehaviour
 	public void saveFile ()
 	{
 		StreamWriter sw = new StreamWriter (pathToSave);
+		sw.WriteLine("textures");
+		sw.WriteLine( texturesPaths.Length );
+		for (int i = 0; i < texturesPaths.Length; i++) 
+		{
+			//пишем пути текстур всех
+			sw.WriteLine(texturesPaths[i]);
+		}
+		sw.WriteLine("^_^  >___<  =) 8===Э  ( . )( . )  (__.__)");
+		sw.WriteLine ( "objects" );
+		sw.WriteLine ( objects.Length );
 		for (int i = 0; i < objects.Length; i++) 
 		{
-			sw.WriteLine("TestSave " + levelName + " " + i );
+			sw.WriteLine(objects[i].name);					//имя объекта
+			sw.WriteLine(objects[i].transform.position);	//позиция объекта
 		}
 		sw.Close ();
 
@@ -136,6 +157,60 @@ public class CLevelGenerator : MonoBehaviour
 	#region public void loadFile ()
 	public void loadFile ()
 	{
+		
+	}
+	#endregion
+
+
+	#region public  void addObject (...)
+	public void addObject ( GameObject obj)
+	{
+		if( currentObjIndex >= objects.Length )
+		{
+			Debug.Log("addObject: trying to add out of range, objects.Length = " + objects.Length 
+			          + " your  currentObjIndex is " + currentObjIndex + ". This is XYEBO =)");
+			return;
+		}
+		objects [currentObjIndex] = obj;
+		currentObjIndex++;
+	
+	}
+	#endregion
+
+	#region public  void addTexturePath (...)
+	public void addTexturePath ( string pathToTexture )
+	{
+		if( texturesPaths == null)
+		{//если массив пустой
+			texturesPaths = new string[1];
+			texturesPaths[0] = pathToTexture;
+			return;
+		}
+
+		for( int i = 0; i < texturesPaths.Length; i++ )
+		{
+			//если такой путь до текстуры есть, то уходим
+			if( texturesPaths[i] == pathToTexture ) return;
+
+		}
+		//добавляем новый путь
+		string[/* texturesPaths.Length */] tempStr = texturesPaths;
+		texturesPaths = new string[ tempStr.Length + 1];
+		texturesPaths = tempStr;
+		texturesPaths[ texturesPaths.Length - 1 ] = pathToTexture;
+		tempStr = null;
+	}
+	#endregion
+
+	#region public  void addTexturePath (...)
+	public int getTexturePathIndex ( string pathToTexture )
+	{
+		for( int i = 0; i < texturesPaths.Length; i++ )
+		{
+			if( texturesPaths[i] == pathToTexture ) return i;
+		}
+		//если -1, то нет такой текстуры( можно на дефолтный вариант 0 поставить )
+		return -1;
 		
 	}
 	#endregion

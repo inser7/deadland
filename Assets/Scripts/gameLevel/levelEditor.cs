@@ -14,11 +14,18 @@ public class levelEditor : MonoBehaviour
 	#region void OnGUI()
 	private void OnGUI()
 	{
-		if(GUI.Button(new Rect( 10, 10, 200, 40 ), "Save" ) )
+		if(GUI.Button(new Rect( 10, 10, 200, 40 ), "Save Level To File" ) )
 	  	{
 			Debug.Log("saving level to file = " + thisLvlGen.levelName );
 			thisLvlGen.saveFile();
 		}
+
+		if(GUI.Button(new Rect( Screen.width - 200 - 10, 10, 200, 40 ), "Load Level from File" ) )
+		{
+			Debug.Log("loading level from file = " + thisLvlGen.levelName );
+			thisLvlGen.loadFile();
+		}
+		GUI.TextArea (new Rect (10, 60, 200, 20), "  shift - ускорение прокрутки");
 	
 	}
 	#endregion
