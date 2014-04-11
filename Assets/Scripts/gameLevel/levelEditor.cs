@@ -29,7 +29,7 @@ public class levelEditor : MonoBehaviour
 		if(GUI.Button(new Rect( Screen.width - 420, 10, 200, 40 ), "Clear Level" ) )
 		{
 			Debug.Log("Clear Level = " + thisLvlGen.levelName );
-
+			thisLvlGen.clearLevel();
 
 		}
 
