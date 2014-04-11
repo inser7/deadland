@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
 
 public class CLevelGenerator : MonoBehaviour
 {
@@ -10,15 +11,34 @@ public class CLevelGenerator : MonoBehaviour
     public int mapWidth  = 4;
     //кол-во тайлов в высоту
     public int mapHeight = 4;
+	//pixels in unit
+	public float pixInUnit = 51.2f;
+
+	//путь куда сохранять
+	public string pathToSave;
+	//имя файла 
+	public string levelName;
+	//массив объектов уровня
+	protected GameObject[]	objects;
     #endregion
 
-//(new GameObject("AutoFade")).AddComponent<AutoFade>();
+	enum ColliderType
+	{
+		CT_BOX 		= 0,
+		CT_CIRCLE 	= 1
+	};
+
 	// Use this for initialization
 	#region void Start ()
 	void Start ()
-    {
-		//tiles = new GameObject[1];
-		CreateTiles (mapWidth, mapHeight, 512 * mapWidth, 512 * mapHeight);
+	{
+		if (levelName == "")
+			levelName = "levelName.txt";
+		if (pathToSave == "")
+			pathToSave =/* "level/" + */levelName;
+		objects = new GameObject[1];
+		CreateTiles (mapWidth, mapHeight, 512 /* mapWidth*/, 512 /* mapHeight*/);
+		//Application.CaptureScreenshot ("sss.png");
 
 	}
     #endregion
@@ -31,75 +51,92 @@ public class CLevelGenerator : MonoBehaviour
 	}
     #endregion
 
-	#region void CreateTile ()
-	void/*GameObject*/ CreateTiles (int row, int col, int w, int h )
+	#region void CreateTiles (...)
+	void CreateTiles (int row, int col, int w, int h )
 	{
-		GameObject tile = new GameObject ();
-		//tile.AddComponent<Transform> ();
-		//tile.transform.position = new Vector3( transform.position.x + w*row, transform.position.y +  h*col, transform.position.z);
-		tile.AddComponent<SpriteRenderer> ();
-		Sprite sprite = new Sprite ();
 		string path = "file://c:\\DeveloperStudio\\UnityProjects\\Deathland\\deadland\\Assets\\Sprites\\ground\\sand.png";
-		WWW www = new WWW(path);
-		//yield return www; 
-		//www.texture.
-		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), 128.0f);
-		//tile.transform.localScale = new Vector3 (5.0f, 5.0f, 1.0f );
-		//tile.transform.localScale = new Vector3 (3.0f, 3.0f, 1.0f );
-		tile.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f );
-		SpriteRenderer sRenderer = tile.GetComponent<SpriteRenderer> ();
-
-		sRenderer.sprite = sprite;
-
-		//создаем тайлы
-		Vector2 startPos = new Vector2 (row * w / ( 2.0f * tile.transform.localScale.x) ,
-
-		                                col * h / ( 2.0f * tile.transform.localScale.y) );
-		Debug.Log("startPos " + ( -w / 2.0f ) );
-		//Quaternion newRot = Quaternion.Euler (0.0f, 0.0f, 45.0f);
-		//for( int i = 0; i < row; i++ )
-			//for( int j = 0; j < col; j++ )
+		Vector2 startPos = new Vector2 (- w * row / 2 / pixInUnit, - h * col / 2 / pixInUnit);
+		for(int i = 0; i < row; i++ )
+			for( int j = 0; j < col; j++ )
 			{
-			//	tile.name =  "Tile_" + i.ToString() +"x"+j.ToString();
-			/*	Vector3 newPos = new Vector3( 	-startPos.x +  w + w * i,
-			                            		-startPos.y +  h + h * j, 
-			                             		0.0f );
-*/
-			//Vector3 newPos = new Vector3( 	-startPos.x/* +  w + /w * i*/,
-			    //                         -startPos.y/* +  h + h * j*/, 
-			      //                       0.0f );
-
-				Vector3 newPos = new Vector3( 	20-20.0f,
-				                             	20-20.0f, 
-			                             		 0.0f );
-			tile.transform.position = newPos;
-			//tile.transform.position = new Vector3( tile.transform.position.x,// - 30.0f,
-			//                                      tile.transform.position.y,
-			  //                                    tile.transform.position.z);
-			Instantiate( tile, tile.transform.position, tile.transform.rotation );
-				Debug.Log(tile.name + newPos);
+				Vector3 pos = new Vector3 ( 	startPos.x + i * w / pixInUnit +i, 
+			          	                 		startPos.y + j * h / pixInUnit +j, 
+			       			                    0);
+				//Vector3 pos = new Vector3 ( 0, 0, 0);
+				GameObject tile = createSprite (w, h, pos, path);
+				objects[0] = tile;
+				Instantiate( tile );
 			}
-
-		//return tile;
+	/*	WWW www = new WWW(path);
+		//yield return www; 
+		tile.transform.localScale = new Vector3 (1.0f, 1.0f, 1.0f );*/
 	}
 	#endregion
 
-	#region GameObject createObject ()
-	GameObject createObject (int w, int h, Vector3 pos, string path )
+	#region GameObject createSprite ()
+	GameObject createSprite (int w, int h, Vector3 pos, string path )
 	{
+
 		GameObject obj = new GameObject ();
+		//obj.layer 	= "ground";
+		//obj.tag 	= "ground";
 		obj.transform.position = pos;
 		obj.AddComponent<SpriteRenderer> ();
 		Sprite sprite = new Sprite ();
 		WWW www = new WWW(path);
 
-		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), 128.0f);
+		sprite = Sprite.Create (www.texture, new Rect(0, 0, w, h),new Vector2(0, 0), pixInUnit);
 	
 		SpriteRenderer sRenderer = obj.GetComponent<SpriteRenderer> ();
 		
 		sRenderer.sprite = sprite;
 		
 		return obj;
+	}
+    #endregion
+
+	#region void addCollider (...)
+	void addCollider (GameObject sprite, ColliderType type, Vector3 pos, float w, float h )
+	{
+		//Collider2D localCollider;
+		/*switch( type )
+		{
+			case ColliderType.CT_BOX:
+				BoxCollider2D localCollider = new BoxCollider2D();
+				//localCollider.size = new Vector2( w, h );
+				//localCollider.center = new Vector2( pos.x, pos.y );
+				sprite.collider2D =  localCollider;
+				break;
+			case ColliderType.CT_CIRCLE:
+				CircleCollider2D localCollider = new CircleCollider2D();
+				//(CircleCollider2D)localCollider.radius = w;
+				//(CircleCollider2D)localCollider.center = new Vector2( pos.x, pos.y );
+				sprite.collider2D = localCollider;
+				break;
+		};
+*/
+	}
+	#endregion
+
+	// 
+	#region public  void saveFile ()
+	public void saveFile ()
+	{
+		StreamWriter sw = new StreamWriter (pathToSave);
+		for (int i = 0; i < objects.Length; i++) 
+		{
+			sw.WriteLine("TestSave " + levelName + " " + i );
+		}
+		sw.Close ();
+
+	}
+	#endregion
+
+	// загружаем файл уровня
+	#region public void loadFile ()
+	public void loadFile ()
+	{
+		
 	}
 	#endregion
 }
