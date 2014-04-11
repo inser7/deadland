@@ -20,13 +20,28 @@ public class levelEditor : MonoBehaviour
 			thisLvlGen.saveFile();
 		}
 
-		if(GUI.Button(new Rect( Screen.width - 200 - 10, 10, 200, 40 ), "Load Level from File" ) )
+		if(GUI.Button(new Rect( Screen.width - 210, 10, 200, 40 ), "Load Level from File" ) )
 		{
 			Debug.Log("loading level from file = " + thisLvlGen.levelName );
 			thisLvlGen.loadFile();
 		}
-		GUI.TextArea (new Rect (10, 60, 200, 20), "  shift - ускорение прокрутки");
 	
+		if(GUI.Button(new Rect( Screen.width - 420, 10, 200, 40 ), "Clear Level" ) )
+		{
+			Debug.Log("Clear Level = " + thisLvlGen.levelName );
+
+
+		}
+
+		if(GUI.Button(new Rect( Screen.width - 210, 60, 200, 40 ), "Test Generator: createTiles" ) )
+		{
+			Debug.Log("Test Generator");
+			thisLvlGen.CreateTiles( 3, 3, 512, 512 );
+			
+		}
+
+		
+		GUI.TextArea (new Rect (10, 60, 200, 20), "  shift - ускорение прокрутки");
 	}
 	#endregion
 	
