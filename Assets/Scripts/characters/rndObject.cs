@@ -16,16 +16,22 @@ public class rndObject : MonoBehaviour {
 	public Vector4 maxColor = new Vector4( 10.0f, 10.0f, 10.0f, 1.0f);
 	
 	public bool isScaleRandom = false;
-	public Vector2 minMaxScale = new Vector2( 0.0f, 1.0f );
+	public Vector2 scaleRange = new Vector2( 0.0f, 1.0f );
 	//public Vector2 maxScale = new Vector2( 1.0f, 1.0f );
 
+	public bool isPitchRandom = false;
+	public Vector2 pithcRange = new Vector2( 0.0f, 1.0f );
+	public bool isVolumeRandom = false;
+	public Vector2 volumeRange = new Vector2( 0.0f, 1.0f );
 	private Transform thisTransform;
+	private AudioSource thisAudio;
 	#endregion
 	// Use this for initialization
+	#region void Start ()
 	void Start () 
 	{
-		thisTransform = GetComponent<Transform> ();
-
+		thisTransform 	= GetComponent<Transform> ();
+		thisAudio 		= GetComponent<AudioSource> ();
 		//для веселья цвет меняем рандомно
 		if(isColorRandom)
 		{
@@ -38,15 +44,24 @@ public class rndObject : MonoBehaviour {
 		//для веселья цвет меняем рандомно
 		if(isColorRandom)
 		{
-			float XY =  Random.Range ( minMaxScale.x, minMaxScale.y );
+			float XY =  Random.Range ( scaleRange.x, scaleRange.y );
 			Vector3 spriteScale = new Vector3( XY, XY, 1.0f );
 			thisTransform.localScale = spriteScale;
 		}
 
+		if( thisAudio )
+		{
+			if(isPitchRandom)  thisAudio.pitch  = Random.Range ( pithcRange.x,  pithcRange.y  );
+			if(isVolumeRandom) thisAudio.volume = Random.Range ( volumeRange.x, volumeRange.y );
+		}
 	}
+	#endregion
 	
 	// Update is called once per frame
-	void Update () {
+	#region void Update ()
+	void Update () 
+	{
 	
 	}
+	#endregion
 }

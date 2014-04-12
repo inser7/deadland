@@ -35,16 +35,18 @@ public class CBaseZombie : CBaseCharacter
 
         isDead = false;
 
+		zombieSound = gameObject.GetComponent<AudioSource>();
 		//для веселья цвет меняем рандомно
 		/*var spriteClr = GetComponent<SpriteRenderer> ().color;
 		spriteClr.r = Random.Range (0, 10) / 10.0f;
 		spriteClr.g = Random.Range (0, 10) / 10.0f;
 		spriteClr.b = Random.Range (0, 10) / 10.0f;
 		GetComponent<SpriteRenderer> ().color = spriteClr;
-		*/
-		zombieSound = gameObject.GetComponent<AudioSource>();
+
+
 		zombieSound.pitch = Random.Range (0.7f, 1.3f);
 		zombieSound.volume = Random.Range (0.7f, 1.0f);
+	*/
 		weapon = gameObject.GetComponentInChildren<CBaseWeapon> ();
 		currentHitPoints = hitPoints;
 	}
