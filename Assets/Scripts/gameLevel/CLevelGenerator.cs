@@ -85,6 +85,7 @@ public class CLevelGenerator : MonoBehaviour
 		GameObject obj = new GameObject ();
 		//obj.layer 	= "ground";
 		//obj.tag 	= "ground";
+		
 		obj.name = spriteName;
 		obj.transform.position = pos;
 		obj.AddComponent<SpriteRenderer> ();
