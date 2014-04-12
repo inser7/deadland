@@ -87,7 +87,7 @@ public class CBaseZombie : CBaseCharacter
             moveTo ();
             lookAt ();
 
-			zombieSound.pitch = Random.Range( 0.7f, 1.0f);
+			zombieSound.pitch = Random.Range( 0.7f, 1.0f) * Time.timeScale;
 			//if( weapon ) weapon.Attack();
 		}
 		else//если померли
@@ -96,7 +96,7 @@ public class CBaseZombie : CBaseCharacter
 			{
 				zombieSound.Stop();
 				deathSound.GetComponent<AudioSource>().volume = Random.Range( 0.5f, 1.0f);
-				deathSound.GetComponent<AudioSource>().pitch = Random.Range( 0.5f, 1.2f);
+				deathSound.GetComponent<AudioSource>().pitch = Random.Range( 0.5f, 1.2f) * Time.timeScale;
 				var deathSnd = Instantiate( deathSound, thisTransform.position, thisTransform.rotation );
 				Destroy( deathSnd, 3 );
 

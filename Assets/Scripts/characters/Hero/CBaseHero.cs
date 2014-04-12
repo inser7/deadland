@@ -57,14 +57,17 @@ public class CBaseHero : CBaseCharacter
 			bool isNitroOn = Input.GetKey( KeyCode.LeftShift );
 			nitro = ( isNitroOn && ( currenNitroStock > 0 ) )? Mathf.Lerp(nitro, nitroSpeed, Time.deltaTime * 2) : 0;
 			//добавляем "Газу" при звучании
-			motorSound.pitch = 0.3f + 0.2f*( Mathf.Abs (moveDirection.y)  + nitro * 0.1f );// +  * 0.2f * moveDirection.y ;
+			motorSound.pitch = ( 0.3f + 0.2f*( Mathf.Abs (moveDirection.y)  + nitro * 0.1f ) ) * Time.timeScale ;// +  * 0.2f * moveDirection.y ;
 
 			//двигаемся вперед
 			rigidbody2D.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 			if( isNitroOn && currenNitroStock > 0.0f )
 			{   //нитро кончается
 				currenNitroStock -= 0.1f;
-			}
+			} 
+
+			//слооооууу мооооуууушнн
+			Time.timeScale = Input.GetKey( KeyCode.LeftShift ) ? 0.2f : 1.0f;
 		}
 		damage = (int) Mathf.Abs( moveDirection.y * taranDamage );
 		//thisRigidbody.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;

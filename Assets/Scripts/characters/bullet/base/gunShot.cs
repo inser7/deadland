@@ -33,6 +33,7 @@ public class gunShot : MonoBehaviour
 		forwardDirection = new Vector2 (newX, newY);
 		
 		forwardDirection.Normalize ();
+		GetComponent<AudioSource> ().pitch *= Time.timeScale;
 	}
 	
 	// Update is called once per frame

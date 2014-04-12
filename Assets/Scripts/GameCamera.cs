@@ -36,6 +36,7 @@ public class GameCamera : MonoBehaviour
 	#region Track Target
     void LateUpdate()
     {
+		//GetComponentInChildren<AudioSource> ().pitch = Time.timeScale;
         if (!target)
 			return;
 			//Debug.Log( cameraTransform.position );
