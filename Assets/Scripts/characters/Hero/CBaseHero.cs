@@ -67,9 +67,10 @@ public class CBaseHero : CBaseCharacter
 			} 
 
 			//слооооууу мооооуууушнн
-			Time.timeScale = Input.GetKey( KeyCode.LeftShift ) ? 0.2f : 1.0f;
+
 		}
 		damage = (int) Mathf.Abs( moveDirection.y * taranDamage );
+		Time.timeScale = Input.GetKey( KeyCode.LeftShift ) ? 0.2f : 1.0f;
 		//thisRigidbody.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 	}
 	#endregion

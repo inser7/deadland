@@ -13,6 +13,7 @@ public class CLevelGenerator : MonoBehaviour
 	//pixels in unit
 	public float pixInUnit = 51.2f;
 
+	//public CBaseLevelGoal goal;
 	//путь куда сохранять
 	public string pathToSave;
 	//имя файла 
@@ -49,6 +50,7 @@ public class CLevelGenerator : MonoBehaviour
 	#region void Update ()
 	void Update ()
 	{
+
 
 	}
     #endregion
