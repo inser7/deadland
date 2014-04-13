@@ -346,7 +346,8 @@ public class CLevelGenerator : MonoBehaviour
 	#region public void sceneAnalizator ()
 	public void sceneAnalizator ( string tag )
 	{
-		objects = GameObject.FindGameObjectsWithTag (tag);
+		//objects = GameObject.FindGameObjectsWithTag (tag);
+		//objects = GameObject.FindObjectsOfType(typeof(GameObject));
 		/*
 		 * узнать все используемые текстуры
 		 * сделать индексы текстур

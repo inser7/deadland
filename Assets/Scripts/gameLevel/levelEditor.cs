@@ -49,6 +49,7 @@ public class levelEditor : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
+
 		thisLvlGen = gameObject.GetComponent<CLevelGenerator> ();
 		thisTransform = gameObject.GetComponent<Transform> ();
 		thisCamera = gameObject.GetComponent<Camera> ();

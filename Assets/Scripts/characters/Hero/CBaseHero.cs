@@ -66,11 +66,12 @@ public class CBaseHero : CBaseCharacter
 				currenNitroStock -= 0.1f;
 			} 
 
-			//слооооууу мооооуууушнн
 
 		}
 		damage = (int) Mathf.Abs( moveDirection.y * taranDamage );
-		Time.timeScale = Input.GetKey( KeyCode.LeftShift ) ? 0.2f : 1.0f;
+		//слооооууу мооооуууушнн
+		Time.timeScale = Mathf.Lerp (Time.timeScale, Input.GetKey (KeyCode.LeftShift) ? 0.2f : 1.0f, 0.25f);//Time.fixedTime );
+		//Time.timeScale = Input.GetKey( KeyCode.LeftShift ) ? 0.2f : 1.0f;
 		//thisRigidbody.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 	}
 	#endregion
