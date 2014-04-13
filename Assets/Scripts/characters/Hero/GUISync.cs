@@ -7,6 +7,7 @@ public class GUISync : MonoBehaviour {
 	public UISlider NitroSlider;
     public UILabel MoneyLabel; 
 	public UISlider ShieldSlider;
+    public UISlider HPSlider;
 
 	private CBaseHero thisHero;
 	#endregion
@@ -26,6 +27,7 @@ public class GUISync : MonoBehaviour {
 		NitroSlider.sliderValue =  thisHero.currenNitroStock/thisHero.nitroStock;
         MoneyLabel.text = globalVars.credits.ToString() + " $";
 		ShieldSlider.sliderValue = thisHero.currentHitPoints / (float)thisHero.hitPoints;// thisHero.shield;
+        HPSlider.sliderValue = thisHero.currentHitPoints / thisHero.hitPoints;
 	}
 	#endregion
 }
