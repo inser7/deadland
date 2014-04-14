@@ -32,15 +32,16 @@ public class CBaseHero : CBaseCharacter
 	#endregion
 
 	#region void Start ()
-	void Start ()
+	public void Start ()
 	{
+		base.Start (); 
 		motorSound = GetComponent<AudioSource> ();
         taranDamage   = damage;
-		thisRigidbody = GetComponent<Rigidbody2D> ();
-		thisTransform = thisRigidbody.transform;
-		thisAnimator  = GetComponent<Animator> ();
+		//thisRigidbody = GetComponent<Rigidbody2D> ();
+		//thisTransform = thisRigidbody.transform;
+		//thisAnimator  = GetComponent<Animator> ();
 		damage = taranDamage;
-		currentHitPoints = hitPoints;
+		//currentHitPoints = hitPoints;
 	}
 	#endregion
 

@@ -25,30 +25,21 @@ public class CBaseZombie : CBaseCharacter
 
 	// Use this for initialization
 	#region void Start ()
-	void Start ()
+	public void Start ()
 	{
-		thisRigidbody = GetComponent<Rigidbody2D> ();
+		base.Start ();
+		/*thisRigidbody = GetComponent<Rigidbody2D> ();
 		thisTransform = thisRigidbody.transform;
 		thisAnimator  = GetComponent<Animator> ();
-
+		*/
 		target = GameObject.FindGameObjectWithTag ("Player");
 
         isDead = false;
 
 		zombieSound = gameObject.GetComponent<AudioSource>();
-		//для веселья цвет меняем рандомно
-		/*var spriteClr = GetComponent<SpriteRenderer> ().color;
-		spriteClr.r = Random.Range (0, 10) / 10.0f;
-		spriteClr.g = Random.Range (0, 10) / 10.0f;
-		spriteClr.b = Random.Range (0, 10) / 10.0f;
-		GetComponent<SpriteRenderer> ().color = spriteClr;
 
-
-		zombieSound.pitch = Random.Range (0.7f, 1.3f);
-		zombieSound.volume = Random.Range (0.7f, 1.0f);
-	*/
 		weapon = gameObject.GetComponentInChildren<CBaseWeapon> ();
-		currentHitPoints = hitPoints;
+		//currentHitPoints = hitPoints;
 	}
 	#endregion
 
@@ -116,10 +107,10 @@ public class CBaseZombie : CBaseCharacter
 	#endregion
 
 	#region void setDamage (int damage)
-    public override void setDamage (int damage)
+	public override void setDamage (int Value)
 	{
 	    if(!isLive() ) return;
-		incHitPoints (-damage);
+		base.setDamage (Value);
 		var bloodIndex = Random.Range(0, blood.Length);
 		Instantiate(blood[bloodIndex], thisTransform.position, thisTransform.rotation);
 

@@ -9,12 +9,11 @@ public class CBaseCharacter : MonoBehaviour
     /*protected*/public int damage = 0;
 
 	//здоровье персонажа
-	//protected CBaseHP hitPoints;
-	public int hitPoints;
+	public int maxHitPoints;
 	public int currentHitPoints;
 	//щит персонажа если есть
-	public int shield;
-	//protected CBaseHP shield;
+	public int maxShieldPoints;
+	public int currentShieldPoints;
 	//основное оружие
 	//publc CBaseWeapon mainWeapon;
 	
@@ -56,34 +55,54 @@ public class CBaseCharacter : MonoBehaviour
 	#endregion
 	// Use this for initialization
 	#region void Start ()
-	void Start ()
+	public void Start ()
 	{
 		thisRigidbody = GetComponent<Rigidbody2D> ();
 		thisTransform = thisRigidbody.transform;
 		thisAnimator  = GetComponent<Animator> ();
-		currentHitPoints = hitPoints;
+		currentHitPoints 	= maxHitPoints;
+		currentShieldPoints = maxShieldPoints;
 	}
 	#endregion
 
 	#region void setHitPoints ()
 	public void setHitPoints ( int newValue)
 	{
-		hitPoints = newValue;
+		maxHitPoints = newValue;
 		currentHitPoints = newValue;
 	}
 	#endregion
 
-	#region void setDamage (int damage)
-	virtual public void setDamage (int damage)
+	#region void setShieldPoints ()
+	public void setShieldPoints ( int newValue)
 	{
-		incHitPoints (-damage);
+		maxShieldPoints = newValue;
+		currentShieldPoints = newValue;
 	}
 	#endregion
 
+	#region void setDamage (int damage)
+	virtual public void setDamage (int Value)
+	{
+		if( currentShieldPoints > 0 )
+			incShieldPoints( - Value );
+		else
+			incHitPoints (-Value);
+		//Debug.Log (currentHitPoints + " " + currentShieldPoints + " " + Value);
+	}
+	#endregion
+	
 	#region void incHitPoints (int incValue)
 	public void incHitPoints (int incValue)
 	{
 		currentHitPoints += incValue;
+	}
+	#endregion
+
+	#region void incShieldPoints (int incValue)
+	public void incShieldPoints (int incValue)
+	{
+		currentShieldPoints += incValue;
 	}
 	#endregion
 
