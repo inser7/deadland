@@ -28,7 +28,16 @@ public class CLevelGoalTimeIsUp : CBaseLevelGoal
 	#region public bool isComplete()
 	public override bool isComplete()
 	{
+		
+		//Debug.Log( "Time left = " + (timeIsUp - Time.time) );
 		return Time.time > timeIsUp ? true : false;
+
 	}
 	#endregion
+
+	void OnGUI()
+	{
+		GUI.TextArea( new Rect( 20, 120, 70, 20 ), "Time: " + ( Mathf.Round( timeIsUp - Time.time )).ToString() );
+		           
+	}
 }

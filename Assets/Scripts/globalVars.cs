@@ -10,4 +10,6 @@ public static class globalVars
 	//общее кол-во опыта героя
 	public static uint heroExperience = 0;
 
+	public static bool isGameActive = false;
+
 }

@@ -16,17 +16,19 @@ public class Spawner : MonoBehaviour
     #endregion
 
     #region Update is called once per frame
-    void Spawn () {
+    void Spawn ()
+	{
 
+		if( !globalVars.isGameActive ) return;
         // Instantiate a random enemy.
         var enemyIndex = Random.Range(0, zombies.Length);
         Instantiate(zombies[enemyIndex], transform.position, transform.rotation);
 
         // Play the spawning effect from all of the particle systems.
-        foreach (var p in GetComponentsInChildren<ParticleSystem>())
+        /*foreach (var p in GetComponentsInChildren<ParticleSystem>())
         {
             p.Play();
-        }
+        }*/
     }
     #endregion
 

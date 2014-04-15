@@ -23,7 +23,8 @@ public class levelEditor : MonoBehaviour
 		if(GUI.Button(new Rect( Screen.width - 210, 10, 200, 40 ), "Load Level from File" ) )
 		{
 			Debug.Log("loading level from file = " + thisLvlGen.levelName );
-			thisLvlGen.loadFile();
+			//thisLvlGen.loadFile();
+			thisLvlGen.sceneAnalizator("");
 		}
 	
 		if(GUI.Button(new Rect( Screen.width - 420, 10, 200, 40 ), "Clear Level" ) )

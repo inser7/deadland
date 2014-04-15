@@ -132,6 +132,8 @@ public class CBaseHero : CBaseCharacter
 	#region void FixedUpdate()
 	private void FixedUpdate()
 	{
+		
+		if( !globalVars.isGameActive ) return;
 		moveDirection 	= new Vector2 ( Input.GetAxis("Horizontal"), Input.GetAxis("Vertical") );
 		moveTo ();//движение
 		lookAt ();//поворот

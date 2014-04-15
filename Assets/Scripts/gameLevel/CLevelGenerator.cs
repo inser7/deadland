@@ -51,6 +51,7 @@ public class CLevelGenerator : MonoBehaviour
 	void Update ()
 	{
 
+		//RenderSettings.ambientLight = Color.Lerp (RenderSettings.ambientLight, new Color (1, 1, 1), 0.01f);
 
 	}
     #endregion
@@ -82,7 +83,7 @@ public class CLevelGenerator : MonoBehaviour
 	#region GameObject createSprite ()
 	void/*GameObject*/ createSprite (int w, int h, Vector3 pos, string path, string spriteName )
 	{
-		
+
 		addTexturePath (path);
 		GameObject obj = new GameObject ();
 		//obj.layer 	= "ground";
@@ -141,7 +142,10 @@ public class CLevelGenerator : MonoBehaviour
 		}
 		Debug.Log ("saving file : " + pathToSave);
 		StreamWriter sw = new StreamWriter (pathToSave);
-		Debug.Log ("texture paths saving");
+		/*Debug.Log ("level goal saving");
+		sw.WriteLine("levelGoal");
+		sw.WriteLine();
+		*/Debug.Log ("texture paths saving");
 		sw.WriteLine("textures");
 		sw.WriteLine( texturesPaths.Length );
 		for (int i = 0; i < texturesPaths.Length; i++) 
@@ -347,11 +351,49 @@ public class CLevelGenerator : MonoBehaviour
 	public void sceneAnalizator ( string tag )
 	{
 		//objects = GameObject.FindGameObjectsWithTag (tag);
-		//objects = GameObject.FindObjectsOfType(typeof(GameObject));
-		/*
-		 * узнать все используемые текстуры
-		 * сделать индексы текстур
-		 */
+		//добавляем новый obj
+		GameObject[] tempObjs = GameObject.FindObjectsOfType( typeof(GameObject) )  as GameObject[];
+		//Debug.Log ("tempObj.Length = " + tempObj.Length);
+		
+		Debug.Log ("tempObjs.Length = " + tempObjs.Length); 
+		objects = new GameObject[ tempObjs.Length - 1 ];
+		
+		if( objects != null && tempObjs.Length > 0 )
+		{
+
+			//int j = 0;
+			for( int i = 0; i < tempObjs.Length; i++ )
+			{
+				
+				if( !tempObjs[i].CompareTag("MainCamera") ) addObject( tempObjs[i] );
+		/*		if( !tempObjs[i].CompareTag("MainCamera") )
+				{
+					objects[j] = tempObjs[i];// as GameObject;
+					j++;
+				}
+				//if( objects[i].CompareTag("MainCamera") )
+		*/			
+			}
+			for( int i = 0; i < objects.Length; i++ )
+			{
+					Debug.Log(" objects["+i+"].tag = " +objects[i].tag);
+			}
+			tempObjs = null;
+
+			//добавляем новый индекс текстуры
+			/*int[] tempInd = texturesIndicies;
+			texturesIndicies = new int[ tempInd.Length + 1];
+			for( int i = 0; i < tempInd.Length; i++ )
+				texturesIndicies[i] = tempInd[i];
+	*/
+			if( objects[0].CompareTag("MainCamera") )
+				Debug.Log(" objects[0] Yeap, this is a camera =)");
+			Debug.Log ("objects.Length = " + objects.Length); 
+			/*
+			 * узнать все используемые текстуры
+			 * сделать индексы текстур
+			 */
+		}//if( objects != null )
 
 
 	}

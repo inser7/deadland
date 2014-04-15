@@ -66,6 +66,8 @@ public class CBaseZombie : CBaseCharacter
 	#region void FixedUpdate()
 	private void FixedUpdate()
 	{
+		
+		if( !globalVars.isGameActive ) return;
 	   // if(!isLive() ) return;
 		Vector3 direction = target.transform.position - thisTransform.position;
 
