@@ -8,6 +8,8 @@ using System.Collections;
  * проверка цели уровня
  * завершение
  */ 
+
+[ExecuteInEditMode]
 public class CLevelController : MonoBehaviour 
 {
 	#region fields
@@ -49,6 +51,8 @@ public class CLevelController : MonoBehaviour
 			
 		if( thisLevelGoal.isComplete() ) 
 		{
+			
+			globalVars.isGameActive = false;
 			if( levelComplete() ) Application.LoadLevel("2dmenuV2");
 		}
 
@@ -80,11 +84,12 @@ public class CLevelController : MonoBehaviour
 		*/
 		Time.timeScale = (Time.timeScale < 1.0f) ? Time.timeScale + stepForAmbLight : 1.0f;
 		bgMusic.pitch = Time.timeScale;
-		//Debug.Log ("Time.timeScale = " + bgMusic.pitch);
+		//Debug.Log ("Time.timeScale = " +  Time.timeScale + " stepForAmbLight " + stepForAmbLight);
 		//if( RenderSettings.ambientLight != new Color (1.0f, 1.0f, 1.0f) ) isLevelStarted = false;
-		Time.timeScale = Mathf.Lerp (Time.timeScale, Input.GetKey (KeyCode.LeftShift) ? 0.2f : 1.0f, 0.25f);
-		if( thisCamera.orthographicSize == workOrthoSize ) 
+		//Time.timeScale = Mathf.Lerp (Time.timeScale, Input.GetKey (KeyCode.LeftShift) ? 0.2f : 1.0f, 0.25f);
+		if( thisCamera.orthographicSize < workOrthoSize ) 
 		{
+			thisCamera.orthographicSize = workOrthoSize;
 			globalVars.isGameActive = true;
 			isLevelStarted = true;
 		}
@@ -95,20 +100,14 @@ public class CLevelController : MonoBehaviour
 	#region void startLevel ()
 	bool levelComplete ()
 	{
-		//if( isLevelStarted ) return;
-
-		thisCamera.orthographicSize += stepForOrthoSize;
-		//Mathf.Lerp (thisCamera.orthographicSize, workOrthoSize, stepForOrthoSize);
-		RenderSettings.ambientLight = Color.Lerp (RenderSettings.ambientLight, 
-		                                          new Color (0.0f, 0.0f, 0.0f), 
-		                                          0.01f);
+		thisCamera.orthographicSize += stepForOrthoSize / 2f;
 		
-		
-		//if( RenderSettings.ambientLight != new Color (1.0f, 1.0f, 1.0f) ) isLevelStarted = false;
-		
-		if( thisCamera.orthographicSize == workOrthoSize ) isLevelStarted = true;
-
-		return (thisCamera.orthographicSize == startOrthoSize);
+		RenderSettings.ambientLight -= new Color (stepForAmbLight, stepForAmbLight, stepForAmbLight, 0.0f);
+		Time.timeScale = (Time.timeScale >  stepForAmbLight) ? Time.timeScale - stepForAmbLight : 0.0f ;
+		bgMusic.pitch = Time.timeScale;
+		//Debug.Log ("Time.timeScale = " +  Time.timeScale + " stepForAmbLight " + stepForAmbLight);
+	
+		return (thisCamera.orthographicSize >= startOrthoSize);
 		
 	}
 	#endregion
