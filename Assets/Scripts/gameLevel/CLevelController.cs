@@ -22,6 +22,10 @@ public class CLevelController : MonoBehaviour
 	private Camera thisCamera;
 	private CBaseLevelGoal thisLevelGoal;
 	private AudioSource bgMusic;
+	private float	startLevelTime;
+	private int	timeToGo = 4;
+	private UILabel countDown; 
+
 	#endregion
 	// Use this for initialization
 	
@@ -35,10 +39,13 @@ public class CLevelController : MonoBehaviour
 		bgMusic = GetComponentInChildren<AudioSource> ();
 		//bgMusic.pitch = 0.0f;
 		stepForAmbLight = 1 / ((startOrthoSize - workOrthoSize) / stepForOrthoSize );
+		stepForAmbLight = .01f;
 		//Debug.Log ("Level goal is " + thisLevelGoal.ToString ());
 		//Debug.Log ("stepForAmbLightis " + stepForAmbLight );
 		Time.timeScale = 0.0f;
+		startLevelTime = Time.time;
 
+		countDown = GameObject.Find("cntDwn").GetComponent<UILabel> ();
 	}
 	#endregion
 
@@ -68,30 +75,53 @@ public class CLevelController : MonoBehaviour
 	void levelStart ()
 	{
 		if( isLevelStarted ) return;
-		//isLevelStarted = fa;
-		//Debug.Log ("RenderSettings.ambientLight = " + RenderSettings.ambientLight);
+
 		thisCamera.orthographicSize -= stepForOrthoSize;
-		//Mathf.Lerp (thisCamera.orthographicSize, workOrthoSize, stepForOrthoSize);
-		/*RenderSettings.ambientLight = Color.Lerp (RenderSettings.ambientLight, 
+
+		RenderSettings.ambientLight = Color.Lerp (RenderSettings.ambientLight, 
 		                                          new Color (1.0f, 1.0f, 1.0f), 
 		                                          stepForAmbLight );
-*/
-		RenderSettings.ambientLight += new Color (stepForAmbLight, stepForAmbLight, stepForAmbLight, 0.0f);
-		/*if( Time.timeScale < 1.0f )
-			Time.timeScale += stepForAmbLight;
-		else
-			Time.timeScale = 1.0f;
-		*/
+
+
+		//RenderSettings.ambientLight += new Color (stepForAmbLight, stepForAmbLight, stepForAmbLight, 0.0f);
+
 		Time.timeScale = (Time.timeScale < 1.0f) ? Time.timeScale + stepForAmbLight : 1.0f;
 		bgMusic.pitch = Time.timeScale;
 		//Debug.Log ("Time.timeScale = " +  Time.timeScale + " stepForAmbLight " + stepForAmbLight);
-		//if( RenderSettings.ambientLight != new Color (1.0f, 1.0f, 1.0f) ) isLevelStarted = false;
-		//Time.timeScale = Mathf.Lerp (Time.timeScale, Input.GetKey (KeyCode.LeftShift) ? 0.2f : 1.0f, 0.25f);
 		if( thisCamera.orthographicSize < workOrthoSize ) 
 		{
 			thisCamera.orthographicSize = workOrthoSize;
-			globalVars.isGameActive = true;
-			isLevelStarted = true;
+		}
+		switch(timeToGo)
+		{
+			case 0:
+				globalVars.isGameActive = true;
+				isLevelStarted = true;
+				GameObject.Find("cntDwn").SetActive( false);
+				RenderSettings.ambientLight = new Color (1f, 1f, 1f, 1.0f);
+				Time.timeScale = 1f;
+				break;
+			case 1:
+				countDown.text = "Go!!!";
+				var getReadyLbl = GameObject.Find("StartLevelLabel");
+				if( getReadyLbl != null ) getReadyLbl.SetActive( false);
+				break;
+			case 2:
+				countDown.text = "1...";
+				break;
+			case 3:
+				countDown.text = "2...";
+				break;
+			case 4:
+				countDown.text = "3...";
+				break;
+		};
+		
+		if( (Time.time - startLevelTime ) >= Time.timeScale )
+		{
+			timeToGo--;
+			startLevelTime = Time.time;
+			
 		}
 
 	}
@@ -109,6 +139,14 @@ public class CLevelController : MonoBehaviour
 	
 		return (thisCamera.orthographicSize >= startOrthoSize);
 		
+	}
+	#endregion
+
+	#region void OnGUI()
+	void OnGUI()
+	{
+		GUI.TextArea( new Rect( 20, 100, 70, 20 ), "FPS: " + ( Mathf.Round( Time.captureFramerate )).ToString() );
+
 	}
 	#endregion
 }
