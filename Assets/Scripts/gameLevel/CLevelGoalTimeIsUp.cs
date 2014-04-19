@@ -1,43 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CLevelGoalTimeIsUp : CBaseLevelGoal 
+public class CLevelGoalTimeIsUp : CBaseLevelGoal
 {
-	#region Fields
-	public float timeLimit = 1.0f;
+    #region Fields
+    public float timeLimit = 1.0f;
 
-	private float timeIsUp;
-		
-	#endregion
-	
-	#region void Start ()
-	// Use this for initialization
-	void Start () 
-	{
-		timeIsUp = Time.time + timeLimit;
-	}
-	#endregion
-	
-	/*#region void Update ()
+    private float timeIsUp;
+
+    #endregion
+
+    #region void Start ()
+    // Use this for initialization
+    void Start()
+    {
+        timeIsUp = Time.time + timeLimit;
+    }
+    #endregion
+
+    /*#region void Update ()
 	// Update is called once per frame
 	void Update () {
 	
 	}
 	#endregion
 */
-	#region public bool isComplete()
-	public override bool isComplete()
-	{
-		
-		//Debug.Log( "Time left = " + (timeIsUp - Time.time) );
-		return Time.time > timeIsUp ? true : false;
+    #region public bool isComplete()
+    public override bool isComplete()
+    {
 
-	}
-	#endregion
+        Debug.Log("Time left = " + (timeIsUp - Time.time));
+        return Time.time >= timeIsUp ? true : false;
 
-	void OnGUI()
-	{
-		GUI.TextArea( new Rect( 20, 120, 70, 20 ), "Time: " + ( Mathf.Round( timeIsUp - Time.time )).ToString() );
-		           
-	}
+    }
+    #endregion
+
+    void OnGUI()
+    {
+        var time = Mathf.Round(timeIsUp - Time.time);
+
+        if (time < 0)
+            time = 0;
+
+        GUI.TextArea(new Rect(20, 120, 70, 20), "Time: " + time);
+
+    }
 }
