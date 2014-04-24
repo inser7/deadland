@@ -8,6 +8,7 @@ public class CBaseZombie : CBaseCharacter
 	//цена за зомби
 	public uint price = 1;
 	//public GameObject blood;
+	public int bonusRate = 10;
 
 	//цель зомби - игрок
 	protected GameObject target;
@@ -21,6 +22,7 @@ public class CBaseZombie : CBaseCharacter
 	protected bool  isDead = false;
 	protected CBaseWeapon weapon;
 	protected AudioSource zombieSound;
+	protected CBaseBonusGenerator bonusGen;
 	#endregion
 
 	// Use this for initialization
@@ -28,10 +30,6 @@ public class CBaseZombie : CBaseCharacter
 	public void Start ()
 	{
 		base.Start ();
-		/*thisRigidbody = GetComponent<Rigidbody2D> ();
-		thisTransform = thisRigidbody.transform;
-		thisAnimator  = GetComponent<Animator> ();
-		*/
 		target = GameObject.FindGameObjectWithTag ("Player");
 
         isDead = false;
@@ -40,6 +38,7 @@ public class CBaseZombie : CBaseCharacter
 
 		weapon = gameObject.GetComponentInChildren<CBaseWeapon> ();
 		//currentHitPoints = hitPoints;
+		bonusGen = GetComponent<CBaseBonusGenerator>();
 	}
 	#endregion
 
@@ -87,6 +86,9 @@ public class CBaseZombie : CBaseCharacter
 		{
 		    if(!isDead)
 			{
+
+				//if( Random.Range(0, bonusRate) == 1 ) 
+					bonusGen.makeBonus();
 				zombieSound.Stop();
 				deathSound.GetComponent<AudioSource>().volume = Random.Range( 0.5f, 1.0f);
 				deathSound.GetComponent<AudioSource>().pitch = Random.Range( 0.5f, 1.2f) * Time.timeScale;
@@ -149,7 +151,7 @@ public class CBaseZombie : CBaseCharacter
 		{
 			int dmg = myCollision.gameObject.GetComponent<CBaseHero>().damage;
 			if( dmg > 0 ) setDamage( dmg );
-			if( weapon ) weapon.Attack();
+			if( weapon != null ) weapon.Attack();
 			
 			//Debug.Log(" CBaseZombie OnCollisionEnter2D damage = " +myCollision.gameObject.GetComponent<CBaseHero>().damage);
 		}

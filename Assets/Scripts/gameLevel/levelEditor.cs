@@ -23,14 +23,16 @@ public class levelEditor : MonoBehaviour
 		if(GUI.Button(new Rect( Screen.width - 210, 10, 200, 40 ), "Load Level from File" ) )
 		{
 			Debug.Log("loading level from file = " + thisLvlGen.levelName );
-			//thisLvlGen.loadFile();
-			thisLvlGen.sceneAnalizator("");
+			thisLvlGen.loadFile();
+			//thisLvlGen.sceneAnalizator("");
 		}
 	
 		if(GUI.Button(new Rect( Screen.width - 420, 10, 200, 40 ), "Clear Level" ) )
 		{
 			Debug.Log("Clear Level = " + thisLvlGen.levelName );
-			thisLvlGen.clearLevel();
+			//thisLvlGen.clearLevel();
+			
+			Debug.Log("sprite = " + GameObject.Find( "tile_0x1" ).GetComponent<SpriteRenderer>().sprite.texture.name );// sprite.texture.name );
 
 		}
 

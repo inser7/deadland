@@ -25,10 +25,11 @@ public class Spawner : MonoBehaviour
         Instantiate(zombies[enemyIndex], transform.position, transform.rotation);
 
         // Play the spawning effect from all of the particle systems.
-        /*foreach (var p in GetComponentsInChildren<ParticleSystem>())
+       /* foreach (var p in GetComponentsInChildren<ParticleSystem>())
         {
             p.Play();
-        }*/
+        }
+        */
     }
     #endregion
 

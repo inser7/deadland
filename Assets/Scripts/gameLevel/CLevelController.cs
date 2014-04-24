@@ -9,7 +9,7 @@ using System.Collections;
  * завершение
  */ 
 
-[ExecuteInEditMode]
+//[RequireComponent (typeof (AudioSource))]
 public class CLevelController : MonoBehaviour 
 {
 	#region fields
@@ -38,14 +38,15 @@ public class CLevelController : MonoBehaviour
 		thisLevelGoal = GetComponent<CBaseLevelGoal> ();
 		bgMusic = GetComponentInChildren<AudioSource> ();
 		//bgMusic.pitch = 0.0f;
-		stepForAmbLight = 1 / ((startOrthoSize - workOrthoSize) / stepForOrthoSize );
-		stepForAmbLight = .01f;
+		//stepForAmbLight = 1 / ((startOrthoSize - workOrthoSize) / stepForOrthoSize );
+		stepForAmbLight = .1f;
 		//Debug.Log ("Level goal is " + thisLevelGoal.ToString ());
 		//Debug.Log ("stepForAmbLightis " + stepForAmbLight );
 		Time.timeScale = 0.0f;
 		startLevelTime = Time.time;
-
+		timeToGo = 4;
 		countDown = GameObject.Find("cntDwn").GetComponent<UILabel> ();
+		isLevelStarted = false;
 	}
 	#endregion
 
@@ -55,19 +56,30 @@ public class CLevelController : MonoBehaviour
 	void Update ()
 	{
 		levelStart();
-			
+		//Debug.Log ("timeScale = " + Time.timeScale);
+		//Debug.Log ("timeToGo = " + timeToGo);
 		if( thisLevelGoal.isComplete() ) 
 		{
 			
 			globalVars.isGameActive = false;
-			if( levelComplete() ) Application.LoadLevel("2dmenuV2");
+			if( levelComplete() ) 
+			{
+
+				Application.ExternalCall("PostProgress", globalVars.credits);
+				Application.LoadLevel("2dmenuV2");
+			}
 		}
 
 		if( Input.GetKeyDown( KeyCode.Escape ) ) 
 		{
 			globalVars.isGameActive = !globalVars.isGameActive;
-			Debug.Log("globalVars.isGameActive = " + globalVars.isGameActive.ToString() );
+			
+			//var countDwn = GameObject.Find("cntDwn") ;
+			//if( countDwn != null ) countDwn.SetActive( globalVars.isGameActive );
+			//Debug.Log("globalVars.isGameActive = " + globalVars.isGameActive.ToString() );
 		}
+		
+		//Time.timeScale = ( globalVars.isGameActive ) ? 1.0f : 0.1f;
 	}
 	#endregion
 
@@ -75,7 +87,8 @@ public class CLevelController : MonoBehaviour
 	void levelStart ()
 	{
 		if( isLevelStarted ) return;
-
+		
+		//Debug.Log ("levelStart");
 		thisCamera.orthographicSize -= stepForOrthoSize;
 
 		RenderSettings.ambientLight = Color.Lerp (RenderSettings.ambientLight, 
@@ -92,16 +105,21 @@ public class CLevelController : MonoBehaviour
 		{
 			thisCamera.orthographicSize = workOrthoSize;
 		}
+		GameObject.Find("Hero").GetComponent<CBaseHero>().startEngine( timeToGo );
 		switch(timeToGo)
 		{
 			case 0:
-				globalVars.isGameActive = true;
 				isLevelStarted = true;
-				GameObject.Find("cntDwn").SetActive( false);
+
+				countDown.text = "Game Pause";
+				var countDwn = GameObject.Find("cntDwn");
+				if( countDwn != null ) countDwn.SetActive( false);
+				//GameObject.Find("cntDwn").SetActive( false);
 				RenderSettings.ambientLight = new Color (1f, 1f, 1f, 1.0f);
 				Time.timeScale = 1f;
 				break;
 			case 1:
+				globalVars.isGameActive = true;
 				countDown.text = "Go!!!";
 				var getReadyLbl = GameObject.Find("StartLevelLabel");
 				if( getReadyLbl != null ) getReadyLbl.SetActive( false);
@@ -118,6 +136,7 @@ public class CLevelController : MonoBehaviour
 		};
 		
 		if( (Time.time - startLevelTime ) >= Time.timeScale )
+			//if( timeToGo > 0 )
 		{
 			timeToGo--;
 			startLevelTime = Time.time;
@@ -127,7 +146,7 @@ public class CLevelController : MonoBehaviour
 	}
 	#endregion
 
-	#region void startLevel ()
+	#region bool levelComplete ()
 	bool levelComplete ()
 	{
 		thisCamera.orthographicSize += stepForOrthoSize / 2f;
@@ -142,11 +161,12 @@ public class CLevelController : MonoBehaviour
 	}
 	#endregion
 
-	#region void OnGUI()
+	/*#region void OnGUI()
 	void OnGUI()
 	{
 		GUI.TextArea( new Rect( 20, 100, 70, 20 ), "FPS: " + ( Mathf.Round( Time.captureFramerate )).ToString() );
 
 	}
 	#endregion
+	*/
 }

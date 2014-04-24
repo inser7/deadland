@@ -20,7 +20,8 @@ public class GameCamera : MonoBehaviour
 	{
 		cameraTransform = transform;
 
-
+		globalVars.aspectRatio = Screen.width / (float)Screen.height;
+		Debug.Log ("aspectRatio = " + globalVars.aspectRatio);
 	}
 	#endregion
 

@@ -47,14 +47,17 @@ public class CBaseWeapon : MonoBehaviour
 	#region void Update ()
 	void Update ()
 	{
-		if (!parent) Destroy (gameObject);
+		//if (!parent) Destroy (gameObject);
+		//if (!parentScript) Destroy (gameObject);
 		//находим направление цели оружия
 		Vector3 lookDirection;
 		if (!fixedAngle)
 			lookDirection = Camera.main.ScreenToWorldPoint (Input.mousePosition) - weaponTransform.position;
 		else 
 		{
+			Debug.Log("localParentLookAt");
 			Vector2 localParentLookAt = parentScript.forwardDirection;
+			Debug.Log("localParentLookAt22@");
 			//parentForward = ;
 			lookDirection = new Vector3 (localParentLookAt.x, localParentLookAt.y, 0.0f);//  - parent.transform.position;
 
@@ -79,7 +82,7 @@ public class CBaseWeapon : MonoBehaviour
 			reloadTime = Time.time + rateOfFire;
 			//запускаем снаряд 
 			Instantiate( bullet, weaponTransform.position, weaponTransform.rotation);
-			if( gunshot )
+			if( gunshot != null )
 				Instantiate( gunshot, weaponTransform.position, weaponTransform.rotation);
 		}
 	}

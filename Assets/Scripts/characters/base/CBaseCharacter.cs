@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//[RequireComponent (typeof (Rigidbody2D))]
+[RequireComponent (typeof (Animator))]
+[RequireComponent (typeof (AudioSource))]
 public class CBaseCharacter : MonoBehaviour
 {
 
@@ -96,6 +99,8 @@ public class CBaseCharacter : MonoBehaviour
 	public void incHitPoints (int incValue)
 	{
 		currentHitPoints += incValue;
+		
+		if( currentHitPoints >= maxHitPoints ) currentHitPoints = maxHitPoints;
 	}
 	#endregion
 
@@ -112,4 +117,6 @@ public class CBaseCharacter : MonoBehaviour
 		return currentHitPoints > 0;
 	}
 	#endregion
+
 }
+

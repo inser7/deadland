@@ -12,4 +12,7 @@ public static class globalVars
 
 	public static bool isGameActive = false;
 
+
+	public static float aspectRatio = 1f;
+
 }

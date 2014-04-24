@@ -41,7 +41,7 @@ public class CBaseHero : CBaseCharacter
 		//thisTransform = thisRigidbody.transform;
 		//thisAnimator  = GetComponent<Animator> ();
 		damage = taranDamage;
-		//currentHitPoints = hitPoints;
+		//currentHitPoints = maxHitPoints - 50;
 	}
 	#endregion
 
@@ -70,8 +70,6 @@ public class CBaseHero : CBaseCharacter
 
 		}
 		damage = (int) Mathf.Abs( moveDirection.y * taranDamage );
-		//слооооууу мооооуууушнн
-		Time.timeScale = Mathf.Lerp (Time.timeScale, Input.GetKey (KeyCode.LeftShift) ? 0.2f : 1.0f, 0.25f);//Time.fixedTime );
 		//Time.timeScale = Input.GetKey( KeyCode.LeftShift ) ? 0.2f : 1.0f;
 		//thisRigidbody.velocity = forwardDirection * moveSpeed * moveDirection.y + forwardDirection * nitro* moveDirection.y;
 	}
@@ -149,6 +147,33 @@ public class CBaseHero : CBaseCharacter
 	void Update ()
 	{
 
+	}
+	#endregion
+
+	
+	#region void startEngine ()
+	public void startEngine ( int deltaTime )
+	{
+		//deltaTime = (deltaTime % 2) ? deltaTime + 1 : deltaTime;
+		switch(deltaTime)
+		{
+			case 0:
+				motorSound.pitch = .3f ;
+				
+				break;
+			case 1:
+				if( motorSound.pitch > .3f ) motorSound.pitch -= .01f ;
+				break;
+			case 2:
+				if( motorSound.pitch < .8f ) motorSound.pitch += .03f ; else  motorSound.pitch -= .005f;
+				break;
+			case 3:
+				motorSound.pitch = .1f ;
+				break;
+			case 4:
+				motorSound.pitch = 0f;
+				break;
+		};
 	}
 	#endregion
 }

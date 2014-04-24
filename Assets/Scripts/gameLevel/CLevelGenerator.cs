@@ -20,8 +20,8 @@ public class CLevelGenerator : MonoBehaviour
 	public string levelName;
 	//массив объектов уровня
 	protected GameObject[]	objects;
-	protected string[]		texturesPaths;		//кол-во НЕ ОБЯЗАТЕЛЬНО(вообще навряд ли) равно objects.length
-	protected int[]			texturesIndicies; 	//кол-во равно objects.length, хранятся индесы текстур для объектов
+	//protected string[]		texturesPaths;		//кол-во НЕ ОБЯЗАТЕЛЬНО(вообще навряд ли) равно objects.length
+	//protected int[]			texturesIndicies; 	//кол-во равно objects.length, хранятся индесы текстур для объектов
 	//
 	//protected int currentObjIndex = 0;
     #endregion
@@ -66,8 +66,8 @@ public class CLevelGenerator : MonoBehaviour
 		for(int i = 0; i < row; i++ )
 			for( int j = 0; j < col; j++ )
 			{
-				Vector3 pos = new Vector3 ( 	startPos.x + i * w / pixInUnit +i, 
-			          	                 		startPos.y + j * h / pixInUnit +j, 
+				Vector3 pos = new Vector3 ( 	startPos.x + i * w / pixInUnit,// +i, 
+			          	                 		startPos.y + j * h / pixInUnit,// +j, 
 			       			                    0);
 				//Vector3 pos = new Vector3 ( 0, 0, 0);
 			//GameObject tile = 
@@ -84,7 +84,7 @@ public class CLevelGenerator : MonoBehaviour
 	void/*GameObject*/ createSprite (int w, int h, Vector3 pos, string path, string spriteName )
 	{
 
-		addTexturePath (path);
+		//addTexturePath (path);
 		GameObject obj = new GameObject ();
 		//obj.layer 	= "ground";
 		//obj.tag 	= "ground";
@@ -99,11 +99,12 @@ public class CLevelGenerator : MonoBehaviour
 		WWW www2 = new WWW(www.url);
 		sprite = Sprite.Create (www2.texture, new Rect(0, 0, w, h),new Vector2(0, 0), pixInUnit);
 
-		SpriteRenderer sRenderer = obj.GetComponent<SpriteRenderer> ();
-		
+		SpriteRenderer sRenderer = obj.GetComponent<SpriteRenderer>();
+		sprite.texture.name = path; 
+
 		sRenderer.sprite = sprite;
 		addObject (obj);
-		texturesIndicies [texturesIndicies.Length - 1] = getTexturePathIndex (path);
+		//texturesIndicies [texturesIndicies.Length - 1] = getTexturePathIndex (path);
 		//return obj;
 	}
     #endregion
@@ -142,21 +143,25 @@ public class CLevelGenerator : MonoBehaviour
 		}
 		Debug.Log ("saving file : " + pathToSave);
 		StreamWriter sw = new StreamWriter (pathToSave);
+
+		#region Comment
 		/*Debug.Log ("level goal saving");
 		sw.WriteLine("levelGoal");
 		sw.WriteLine();
-		*/Debug.Log ("texture paths saving");
+		*/
+		/*Debug.Log ("texture paths saving");
 		sw.WriteLine("textures");
 		sw.WriteLine( texturesPaths.Length );
 		for (int i = 0; i < texturesPaths.Length; i++) 
 		{
 			//пишем пути текстур всех
 			sw.WriteLine(texturesPaths[i]);
-		}
-		sw.WriteLine("^_^  >___<  =) 8===Э  ( . )( . )  (__.__) no info just a fun");
+		}*/
+		#endregion
+		//sw.WriteLine("^_^  >___<  =) 8===Э  ( . )( . )  (__.__) no info just a fun");
 
 		Debug.Log ("objects info saving");
-		sw.WriteLine ( "objects" );
+		//sw.WriteLine ( "objects" );
 		sw.WriteLine ( objects.Length );
 
 		for (int i = 0; i < objects.Length; i++) 
@@ -170,7 +175,7 @@ public class CLevelGenerator : MonoBehaviour
 				SpriteRenderer sRenderer = objects[i].GetComponent<SpriteRenderer> ();
 				sw.WriteLine( sRenderer.sprite.rect.width );	//spriteWidth
 				sw.WriteLine( sRenderer.sprite.rect.height );	//spriteHeight
-				sw.WriteLine( texturesIndicies[i] );			//indexTexture
+				sw.WriteLine( sRenderer.sprite.texture.name );			//texture path
 				/*данные о коллайдере*/
 				/*тип
 				 *центер
@@ -197,8 +202,8 @@ public class CLevelGenerator : MonoBehaviour
 		if(sr != null)
 		{
 			// сначала считываем данные о текстурах
-			sr.ReadLine();
-			
+			/*sr.ReadLine();
+
 			Debug.Log ("loading textures paths");
 			int localCount = System.Convert.ToInt32( sr.ReadLine() );
 			for(int i = 0; i< localCount; i++)
@@ -206,10 +211,10 @@ public class CLevelGenerator : MonoBehaviour
 				texturesPaths = null;
 				addTexturePath( System.Convert.ToString (sr.ReadLine() ) );
 			}
-			
-			sr.ReadLine(); //съедаем 2  не несущие
-			sr.ReadLine(); // информации строки
-			localCount = 0;
+			*/
+			//sr.ReadLine(); //съедаем 2  не несущие
+			//sr.ReadLine(); // информации строки
+			int localCount = 0;
 		    localCount = System.Convert.ToInt32( sr.ReadLine() );
 			// считываем данные об объектах
 			
@@ -221,13 +226,11 @@ public class CLevelGenerator : MonoBehaviour
 
 				int 	spriteWidth  = System.Convert.ToInt32(sr.ReadLine() );//ширина;
 				int 	spriteHeight = System.Convert.ToInt32(sr.ReadLine() );//высота;
-				int     textureIndex = System.Convert.ToInt32(sr.ReadLine() );//индекс текстуры;;
-				string  pathToTexure = getTexturePathFromIndex( textureIndex );
+				//int     textureIndex = System.Convert.ToInt32(sr.ReadLine() );//индекс текстуры;;
+				string  pathToTexure = System.Convert.ToString( sr.ReadLine() );
 				//GameObject obj = 
 					createSprite (spriteWidth,spriteHeight, spritePos, pathToTexure, spriteName);
 
-
-				//addObject(obj);
 
 			}
 			Debug.Log ("file loaded: " + pathToSave);
@@ -245,8 +248,8 @@ public class CLevelGenerator : MonoBehaviour
 		if( objects == null)
 		{//если массив пустой
 			objects = new GameObject[1];
-			texturesIndicies = null;
-			texturesIndicies = new int[1];
+			//texturesIndicies = null;
+			//texturesIndicies = new int[1];
 
 			objects[0] = obj;
 			return;
@@ -260,17 +263,19 @@ public class CLevelGenerator : MonoBehaviour
 		objects [objects.Length - 1] = obj;
 		tempObj = null;
 		//добавляем новый индекс текстуры
-		int[] tempInd = texturesIndicies;
+		/*int[] tempInd = texturesIndicies;
 		texturesIndicies = new int[ tempInd.Length + 1];
 		for( int i = 0; i < tempInd.Length; i++ )
 			texturesIndicies[i] = tempInd[i];
 
 		tempInd = null;
+*/
 	}
 	#endregion
 
+	/*
 	#region public  void addTexturePath (...)
-	/*public*/ void addTexturePath ( string pathToTexture )
+	void addTexturePath ( string pathToTexture )
 	{
 		if( texturesPaths == null)
 		{//если массив пустой
@@ -295,7 +300,7 @@ public class CLevelGenerator : MonoBehaviour
 	#endregion
 
 	#region public  int getTexturePathIndex (...)
-	/*public*/ int getTexturePathIndex ( string pathToTexture )
+	int getTexturePathIndex ( string pathToTexture )
 	{
 		for( int i = 0; i < texturesPaths.Length; i++ )
 		{
@@ -308,14 +313,15 @@ public class CLevelGenerator : MonoBehaviour
 	#endregion
 
 	#region public  string getTexturePathFromIndex (...)
-	/*public*/ string getTexturePathFromIndex ( int textureIndex )
+	string getTexturePathFromIndex ( int textureIndex )
 	{
 		if( textureIndex >= texturesPaths.Length ) return "Fuck U!";
 		if( texturesPaths == null ) return "Fuck U2!";
 		return texturesPaths [textureIndex];		
 	}
 	#endregion
-	
+	*/
+
 	#region public Vector3 stringToVector3 (...)
 	/*public*/ Vector3 stringToVector3 ( string src )
 	{
@@ -343,6 +349,8 @@ public class CLevelGenerator : MonoBehaviour
 		*/
 	}
 	#endregion
+
+
 
 	/*
 	 * прогоняем все объекты в сцене

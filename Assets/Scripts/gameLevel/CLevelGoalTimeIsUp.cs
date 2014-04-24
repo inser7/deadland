@@ -15,7 +15,7 @@ public class CLevelGoalTimeIsUp : CBaseLevelGoal
 	void Start () 
 	{
 		timeIsUp = Time.time + timeLimit;
-	}
+ 	}
 	#endregion
 	
 	/*#region void Update ()
@@ -28,7 +28,11 @@ public class CLevelGoalTimeIsUp : CBaseLevelGoal
 	#region public bool isComplete()
 	public override bool isComplete()
 	{
+		/*if (!globalVars.isGameActive)
+			timeIsUp = Time.time + timeLimit  - ( timeIsUp - Time.time );
+		*/
 		
+		//21  = 1 + 20 - ( 21 - 5 ) = 21 - 16 = 5
 		//Debug.Log( "Time left = " + (timeIsUp - Time.time) );
 		return Time.time > timeIsUp ? true : false;
 
@@ -37,7 +41,9 @@ public class CLevelGoalTimeIsUp : CBaseLevelGoal
 
 	void OnGUI()
 	{
-		GUI.TextArea( new Rect( 20, 120, 70, 20 ), "Time: " + ( Mathf.Round( timeIsUp - Time.time )).ToString() );
+		var time = Mathf.Round(timeIsUp - Time.time);
+		if (time < 0) time = 0;
+		GUI.TextArea( new Rect( 20, 120, 70, 20 ), "Time: " + time );
 		           
 	}
 }
