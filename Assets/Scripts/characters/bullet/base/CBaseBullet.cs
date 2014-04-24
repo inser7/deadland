@@ -65,6 +65,8 @@ public class CBaseBullet : CBaseCharacter
 	#region private void FixedUpdate()
 	private void FixedUpdate()
 	{
+		
+		if(!globalVars.isGameActive) return;
 		//движемся в направлении клика
 		moveTo ();
 		//если время жизни закончилось, уничтожаем снаряд

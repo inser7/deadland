@@ -26,6 +26,8 @@ public class CBaseBonus : MonoBehaviour {
 	// Update is called once per frame
 	public void Update () 
 	{
+		
+		if(!globalVars.isGameActive) return;
 		if( !isLive() && !isTaken ) Destroy(gameObject);
 		if( endEffect() ) Destroy(gameObject);
 

@@ -50,6 +50,7 @@ public class CBaseWeapon : MonoBehaviour
 	#region void Update ()
 	void Update ()
 	{
+		if(!globalVars.isGameActive) return;
 		Debug.Log( "parentScript = " +parentScript );
 		//if ( (parent == null) || (parentScript  == null ) )
 		if ( parentScript  == null )

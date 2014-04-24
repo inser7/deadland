@@ -56,6 +56,12 @@ public class CLevelGenerator : MonoBehaviour
 	}
     #endregion
 
+	/*
+	 * родительство и детинство
+	 * var currentTexInstance = (GameObject)Instantiate(currentTex,hit.point,Quaternion.FromToRotation(Vector3.up,hit.normal));
+	 * currentTexInstance.transform.parent = hit.collider.transform;
+  	 *
+	 **/
 	#region public void CreateTiles (...)
 	public void CreateTiles (int row, int col, int w, int h )
 	{

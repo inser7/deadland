@@ -56,30 +56,23 @@ public class CLevelController : MonoBehaviour
 	void Update ()
 	{
 		levelStart();
-		//Debug.Log ("timeScale = " + Time.timeScale);
-		//Debug.Log ("timeToGo = " + timeToGo);
+		
+		if( Input.GetKeyDown( KeyCode.Escape ) && isLevelStarted ) 
+		{
+			globalVars.isGameActive = !globalVars.isGameActive;
+			Time.timeScale = globalVars.isGameActive ? 1.0f : 0.0f ;
+		}
+		if(!globalVars.isGameActive) return;
+
 		if( thisLevelGoal.isComplete() ) 
 		{
-			
 			globalVars.isGameActive = false;
 			if( levelComplete() ) 
 			{
-
 				Application.ExternalCall("PostProgress", globalVars.credits);
 				Application.LoadLevel("2dmenuV2");
 			}
 		}
-
-		if( Input.GetKeyDown( KeyCode.Escape ) ) 
-		{
-			globalVars.isGameActive = !globalVars.isGameActive;
-			
-			//var countDwn = GameObject.Find("cntDwn") ;
-			//if( countDwn != null ) countDwn.SetActive( globalVars.isGameActive );
-			//Debug.Log("globalVars.isGameActive = " + globalVars.isGameActive.ToString() );
-		}
-		
-		//Time.timeScale = ( globalVars.isGameActive ) ? 1.0f : 0.1f;
 	}
 	#endregion
 
@@ -149,8 +142,7 @@ public class CLevelController : MonoBehaviour
 	#region bool levelComplete ()
 	bool levelComplete ()
 	{
-		thisCamera.orthographicSize += stepForOrthoSize / 2f;
-		
+		thisCamera.orthographicSize += stepForOrthoSize;// / 2f;
 		RenderSettings.ambientLight -= new Color (stepForAmbLight, stepForAmbLight, stepForAmbLight, 0.0f);
 		Time.timeScale = (Time.timeScale >  stepForAmbLight) ? Time.timeScale - stepForAmbLight : 0.0f ;
 		bgMusic.pitch = Time.timeScale;
@@ -161,12 +153,30 @@ public class CLevelController : MonoBehaviour
 	}
 	#endregion
 
-	/*#region void OnGUI()
+	#region void OnGUI()
 	void OnGUI()
 	{
-		GUI.TextArea( new Rect( 20, 100, 70, 20 ), "FPS: " + ( Mathf.Round( Time.captureFramerate )).ToString() );
+		if(globalVars.isGameActive || !isLevelStarted ) return;
+		Time.timeScale = 0.0f;
+		Vector2 btnSize = new Vector2 (160, 20);
+		Vector2 startPos = new Vector2 (Screen.width / 2  - btnSize.x / 2, 
+		                               Screen.height / 3);
+		GUI.Box (new Rect (startPos.x - 20, startPos.y - 40, btnSize.x + 40, btnSize.y * 10), "Game Menu F* U!");
+		if(GUI.Button(new Rect( startPos.x, startPos.y, btnSize.x, btnSize.y ), "Resume" ) )
+		{
+			globalVars.isGameActive = true;
+			Time.timeScale = 1.0f;
+		}
 
+		
+		if(GUI.Button(new Rect( startPos.x, startPos.y + btnSize.y * 6, btnSize.x, btnSize.y ), "Main Menu" ) )
+		{
+			globalVars.isGameActive = true;
+			
+			Time.timeScale = 1.0f;
+			Application.LoadLevel("2dmenuV2");
+		}
 	}
 	#endregion
-	*/
+
 }

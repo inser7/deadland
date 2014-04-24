@@ -23,6 +23,8 @@ public class CBaseBonusGenerator : MonoBehaviour {
 	#region void makeBonus () 
 	public void makeBonus () 
 	{
+		
+		if(!globalVars.isGameActive) return;
 		if( currentCount >= limit ) Destroy(gameObject);
 		if( listOfBonus.Length == 0 ) 
 		{
