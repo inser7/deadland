@@ -41,7 +41,7 @@ public class garageInventoryController : MonoBehaviour {
 			
 			gameObjs[1].transform.position = slotPosition;
 
-
+/*
 			#region buttons
 			if( gameObject.name == "Up Button" )
 			{
@@ -53,6 +53,7 @@ public class garageInventoryController : MonoBehaviour {
 
 			}
 			#endregion
+*/
 		}
 	}
 	#endregion

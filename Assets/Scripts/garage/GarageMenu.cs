@@ -1,20 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GarageMenu : MonoBehaviour {
+public class GarageMenu : MonoBehaviour 
+{
 
 	
-	void OnMouseDown(){
-		//	Debug.Log(this);
-		Application.LoadLevel("2dmenu");
+	void OnGUI()
+	{
+		if(GUI.Button(new Rect( Screen.width - 210, 10, 200, 40 ), "Exit to Main Menu" ) )
+		{
+			Application.LoadLevel("2dmenuV2");
+		}
+
 	}
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+
 }

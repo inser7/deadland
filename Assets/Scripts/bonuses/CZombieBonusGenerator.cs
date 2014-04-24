@@ -4,7 +4,7 @@ using System.Collections;
 public class CZombieBonusGenerator : CBaseBonusGenerator {
 
 	// Use this for initialization
-	void Start () 
+	new void Start () 
 	{
 		
 		base.Start ();

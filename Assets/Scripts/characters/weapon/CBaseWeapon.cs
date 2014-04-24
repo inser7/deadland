@@ -24,8 +24,8 @@ public class CBaseWeapon : MonoBehaviour
 	private float reloadTime = 0.0f;
 	private Transform weaponTransform;
 	private Vector3 parentForward;
-	public string parentName = "Hero";
-	private GameObject parent;
+	//public string parentName = "Hero";
+	//private GameObject parent;
 	private CBaseCharacter parentScript;
 	//protected CBaseCharacter target;	
 
@@ -35,10 +35,13 @@ public class CBaseWeapon : MonoBehaviour
 	#region void Start ()
 	void Start ()
 	{
+
 		//reloadTime = Time.time;// + rateOfFire;
 		weaponTransform = transform;
-		parent = GameObject.Find ( parentName );
-		parentScript = parent.GetComponent<CBaseCharacter> ();
+		//parent = GameObject.Find ( parentName );
+
+		//parentScript = parent.GetComponent<CBaseCharacter> ();
+		parentScript = weaponTransform.parent.GetComponent<CBaseCharacter> ();
 		//weaponTransform = parent.transform;
 }
     #endregion
@@ -47,20 +50,20 @@ public class CBaseWeapon : MonoBehaviour
 	#region void Update ()
 	void Update ()
 	{
-		//if (!parent) Destroy (gameObject);
-		//if (!parentScript) Destroy (gameObject);
+		Debug.Log( "parentScript = " +parentScript );
+		//if ( (parent == null) || (parentScript  == null ) )
+		if ( parentScript  == null )
+		{ 
+			Destroy (gameObject); 
+			return; 
+		}
 		//находим направление цели оружия
 		Vector3 lookDirection;
 		if (!fixedAngle)
 			lookDirection = Camera.main.ScreenToWorldPoint (Input.mousePosition) - weaponTransform.position;
 		else 
 		{
-			Debug.Log("localParentLookAt");
-			Vector2 localParentLookAt = parentScript.forwardDirection;
-			Debug.Log("localParentLookAt22@");
-			//parentForward = ;
-			lookDirection = new Vector3 (localParentLookAt.x, localParentLookAt.y, 0.0f);//  - parent.transform.position;
-
+			lookDirection = new Vector3 (parentScript.forwardDirection.x, parentScript.forwardDirection.y, 0.0f);//  - parent.transform.position;
 		}
 		lookDirection.Normalize();
 		var currentZRotation = Mathf.Atan2 (lookDirection.y, lookDirection.x) * Mathf.Rad2Deg - 90;

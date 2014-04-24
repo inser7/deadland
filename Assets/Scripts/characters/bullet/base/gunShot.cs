@@ -7,16 +7,15 @@ public class gunShot : MonoBehaviour
 	public float xOffsetKoeff = 1.2f;
 	public float yOffsetKoeff = 1.2f;
 	Vector2 forwardDirection = new Vector2(0, 1);
-	private Animator thisAnimator;
+	//private Animator thisAnimator;
 	private Transform thisTransform;
 
 	#endregion
 	// Use this for initialization
 	void Start () 
 	{
-		//thisTransform = GameObject.FindGameObjectWithTag ("weapon").transform;//.GetComponent<Transform> ();
 		thisTransform = GetComponent<Transform> ();
-		thisAnimator = GetComponent<Animator> ();
+		//thisAnimator = GetComponent<Animator> ();
 		
 		Vector3 startPos = thisTransform.position;
 

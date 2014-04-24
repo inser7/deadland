@@ -58,7 +58,7 @@ public class CBaseCharacter : MonoBehaviour
 	#endregion
 	// Use this for initialization
 	#region void Start ()
-	public void Start ()
+	virtual public void Start ()
 	{
 		thisRigidbody = GetComponent<Rigidbody2D> ();
 		thisTransform = thisRigidbody.transform;

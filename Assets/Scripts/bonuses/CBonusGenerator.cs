@@ -11,7 +11,7 @@ public class CBonusGenerator : CBaseBonusGenerator
 	
 	#region void Start ()
 	// Use this for initialization
-	void Start () 
+	new void Start () 
 	{
 		base.Start ();
 		timeToGenerate = Time.time + bonusRate;

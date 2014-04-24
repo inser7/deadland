@@ -27,7 +27,7 @@ public class CBaseZombie : CBaseCharacter
 
 	// Use this for initialization
 	#region void Start ()
-	public void Start ()
+	public override void Start ()
 	{
 		base.Start ();
 		target = GameObject.FindGameObjectWithTag ("Player");

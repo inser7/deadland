@@ -11,7 +11,7 @@ public class GameCamera : MonoBehaviour
 	public Transform target;
 	public float distanceXToTarget = 0.0f;
 	public float distanceYToTarget = 0.0f;
-    private float trackSpeed = 1;
+    //private float trackSpeed = 1;
 	private Transform cameraTransform;
     #endregion
 

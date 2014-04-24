@@ -28,10 +28,7 @@ public class GarageController : MonoBehaviour {
 		{
 			tracktorTransform.RotateAround (tracktorTransform.position, new Vector3 (0.0f, 1.0f, 0.0f), angle * Mathf.Deg2Rad  * -50 * Input.GetAxis("Mouse X"));
 		}
-		//MeshRenderer obj = gameObject.GetComponent<MeshRenderer> ();
 
-		//obj.
-		//if( isTopWeaponCreate
 		if (isTopWeaponExist) 
 		{
 			GameObject obj = GameObject.Find ("machineGun");
@@ -42,7 +39,8 @@ public class GarageController : MonoBehaviour {
 			Quaternion rot = tracktorTransform.rotation;
 			rot.eulerAngles = new Vector3( -90.0f ,rot.eulerAngles.x,tracktorTransform.rotation.eulerAngles.z); 
 			pos.y += 1.0f;
-			var cloneTopWeapon  = Instantiate( obj/*weapons[0]*/, pos, rot);
+			//var cloneTopWeapon  = 
+				Instantiate( obj/*weapons[0]*/, pos, rot);
 			//gameObject.
 		}
 	}

@@ -100,8 +100,8 @@ public class CLevelGenerator : MonoBehaviour
 		sprite = Sprite.Create (www2.texture, new Rect(0, 0, w, h),new Vector2(0, 0), pixInUnit);
 
 		SpriteRenderer sRenderer = obj.GetComponent<SpriteRenderer>();
-		sprite.texture.name = path; 
 
+		sprite.texture.name = path; 
 		sRenderer.sprite = sprite;
 		addObject (obj);
 		//texturesIndicies [texturesIndicies.Length - 1] = getTexturePathIndex (path);

@@ -18,11 +18,10 @@ public class CBaseBullet : CBaseCharacter
 
 	// Use this for initialization
 	#region void Start ()
-	void Start ()
+	public override void Start ()
 	{
+		base.Start ();
 
-		thisRigidbody = GetComponent<Rigidbody2D> ();
-		thisTransform = thisRigidbody.transform;
 		//thisAnimator  = GetComponent<Animator> ();
 
 		Vector3 startPos = thisTransform.position;
