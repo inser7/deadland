@@ -100,8 +100,8 @@ public class CLevelGenerator : MonoBehaviour
 		obj.AddComponent<SpriteRenderer> ();
 		Sprite sprite = new Sprite ();
 		WWW www = new WWW(path);
-
-
+		     
+		//sprite.
 		WWW www2 = new WWW(www.url);
 		sprite = Sprite.Create (www2.texture, new Rect(0, 0, w, h),new Vector2(0, 0), pixInUnit);
 

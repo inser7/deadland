@@ -59,6 +59,7 @@ public class CLevelController : MonoBehaviour
 		
 		if( Input.GetKeyDown( KeyCode.Escape ) && isLevelStarted ) 
 		{
+
 			globalVars.isGameActive = !globalVars.isGameActive;
 			Time.timeScale = globalVars.isGameActive ? 1.0f : 0.0f ;
 		}
